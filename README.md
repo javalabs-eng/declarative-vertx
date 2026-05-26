@@ -83,7 +83,7 @@ To use <b>declarative-vertx</b>, you need three configuration files.
 
 In the below section we will see how to setup your project to use <b>declarative-vertx</b>
 
-You can find the complete example in the [decl-vertx-example](decl-vertx-example) project.
+You can find the step by step tutorial in the [decl-swagger-doc](decl-swagger-doc) project.
 
 <a name="sexd"/>
 
