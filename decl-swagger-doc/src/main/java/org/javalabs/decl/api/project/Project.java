@@ -14,6 +14,7 @@ public class Project {
     
     private String name;
     private String dir = System.getProperty("user.dir");
+    private String jdkVersion = "17";
     
     private Platform platform = Platform.JAVA;
     private TechStack stack = TechStack.VERTX;
@@ -67,75 +68,21 @@ public class Project {
     
     private JavaClass model;
     
-    public String dbHost() {
-        return dbHost;
-    }
-
-    public Project dbHost(String dbHost) {
-        this.dbHost = dbHost;
-        return this;
-    }
-    
-    public String dbPort() {
-        return dbPort;
-    }
-
-    public Project dbPort(String dbPort) {
-        this.dbPort = dbPort;
-        return this;
-    }
-    
-    public String dbName() {
-        return dbName;
-    }
-
-    public Project dbName(String dbName) {
-        this.dbName = dbName;
-        return this;
-    }
-    
-    public String dbSchema() {
-        return dbSchema;
-    }
-
-    public Project dbSchema(String dbSchema) {
-        this.dbSchema = dbSchema;
-        return this;
-    }
-    
-    public String dbUser() {
-        return dbUser;
-    }
-
-    public Project dbUser(String dbUser) {
-        this.dbUser = dbUser;
-        return this;
-    }
-    
-    public String dbPassword() {
-        return dbPassword;
-    }
-
-    public Project dbPassword(String dbPassword) {
-        this.dbPassword = dbPassword;
-        return this;
-    }
-    
-    public String dbDialect() {
-        return dbDialect;
-    }
-
-    public Project dbDialect(String dbDialect) {
-        this.dbDialect = dbDialect;
-        return this;
-    }
-    
     public String name() {
         return name;
     }
 
     public Project name(String name) {
         this.name = name;
+        return this;
+    }
+    
+    public String jdkVersion() {
+        return jdkVersion;
+    }
+
+    public Project jdkVersion(String jdkVersion) {
+        this.jdkVersion = jdkVersion;
         return this;
     }
     
@@ -261,6 +208,17 @@ public class Project {
 
     public Project basePkg(String basePkg) {
         this.basePkg = basePkg;
+        
+        this.corePkg = basePkg + "." + "core";
+        this.utilPkg = basePkg + "." + "util";
+        this.handlerPkg = basePkg + "." + "handler";
+        this.boPkg = basePkg + "." + "bo";
+        this.daoPkg = basePkg + "." + "dao";
+        this.modelPkg = basePkg + "." + "model";
+        this.authPkg = basePkg + "." + "auth";
+        this.configPkg = basePkg + "." + "config";
+        this.mainPkg = basePkg + "." + "main";
+        
         return this;
     }
 
@@ -424,6 +382,69 @@ public class Project {
 
     public void ormPath(String ormPath) {
         this.ormPath = ormPath;
+    }
+    
+    public String dbHost() {
+        return dbHost;
+    }
+
+    public Project dbHost(String dbHost) {
+        this.dbHost = dbHost;
+        return this;
+    }
+    
+    public String dbPort() {
+        return dbPort;
+    }
+
+    public Project dbPort(String dbPort) {
+        this.dbPort = dbPort;
+        return this;
+    }
+    
+    public String dbName() {
+        return dbName;
+    }
+
+    public Project dbName(String dbName) {
+        this.dbName = dbName;
+        return this;
+    }
+    
+    public String dbSchema() {
+        return dbSchema;
+    }
+
+    public Project dbSchema(String dbSchema) {
+        this.dbSchema = dbSchema;
+        return this;
+    }
+    
+    public String dbUser() {
+        return dbUser;
+    }
+
+    public Project dbUser(String dbUser) {
+        this.dbUser = dbUser;
+        return this;
+    }
+    
+    public String dbPassword() {
+        return dbPassword;
+    }
+
+    public Project dbPassword(String dbPassword) {
+        this.dbPassword = dbPassword;
+        return this;
+    }
+    
+    public String dbDialect() {
+        return dbDialect;
+    }
+
+    public Project dbDialect(String dbDialect) {
+        this.dbDialect = dbDialect;
+        return this;
     }
     
     public static class InputResource {

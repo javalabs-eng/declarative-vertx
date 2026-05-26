@@ -57,7 +57,7 @@ public class ServiceApiCommand implements Command {
             
             Map<String, JavaClass> classes = (Map)ctx.get("resource.names");
             for (Map.Entry<String, JavaClass> me: classes.entrySet()) {
-                String tmp = helper.analyze(project, new String(buff));
+                String tmp = helper.analyze(project, new String(buff), me.getValue());
             
                 File handlerFile = new File(destDir + File.separator + me.getKey() + "Handler.java");
                 ClassWriter.write(handlerFile, tmp, project.verbose());

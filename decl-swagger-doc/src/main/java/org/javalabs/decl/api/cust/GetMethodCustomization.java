@@ -62,28 +62,82 @@ public class GetMethodCustomization extends AbstractCustomization {
     }
 
     @Override
-    public Result entry(Project project) {
+    public Result entry(Project project, JavaClass model) {
         final StringBuilder buff = new StringBuilder(256);
         
         try {
             // Employee current = store.get(id);
-            buff.append("// Fetch the existing employee from the in-memory store.");
-            buff.append("\n\t\t\t")
-                    .append(project.inputResource().resource()).append(" ").append("element").append(" = ").append("store.get(id)")
-                    .append(";");
+            JavaVariable idVar = idField(model);
             
-            // if (current == null) {
-            //     throw new NoSuchElementException("No element found for id: " + id);
-            // }
-            buff.append("\n\t\t\t")
-                    .append("if ").append("(").append("element").append(" == ").append("null").append(")").append("{")
-                    .append("\n\t\t\t\t").append("throw new NoSuchElementException(\"No element found for id: \" + id)").append(";")
-                    .append("\n\t\t\t")
-                    .append("}");
-            
-            // return current;
-            buff.append("\n\t\t\t").append("return element").append(";");
-            
+            if (idVar != null) {
+                buff.append("// Fetch the existing employee from the in-memory store.");
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(project.inputResource().resource())
+                        .append(CodeGenSupport.SPACE)
+                        .append("element")
+                        .append(CodeGenSupport.SPACE)
+                        .append(CodeGenSupport.EQUALS)
+                        .append(CodeGenSupport.SPACE)
+                        .append("store")
+                        .append(CodeGenSupport.STOP)
+                        .append("get")
+                        .append("(")
+                        .append("id")
+                        .append(")")
+                        .append(CodeGenSupport.SEMICOLON);
+                
+                // if (current == null) {
+                //     throw new NoSuchElementException("No element found for id: " + id);
+                // }
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("if")
+                        .append(CodeGenSupport.SPACE)
+                        .append("(")
+                        .append("element")
+                        .append(CodeGenSupport.SPACE)
+                        .append("==")
+                        .append(CodeGenSupport.SPACE)
+                        .append("null")
+                        .append(")")
+                        .append(CodeGenSupport.SPACE)
+                        .append("{")
+                        .append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("throw new NoSuchElementException(\"No element found for id: \" + id)")
+                        .append(CodeGenSupport.SEMICOLON)
+                        .append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("}");
+                
+                // return element;
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("return")
+                        .append(CodeGenSupport.SPACE)
+                        .append("element")
+                        .append(CodeGenSupport.SEMICOLON);
+            }
+            else {
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("throw new NoSuchElementException(\"No element found for id: \" + id)")
+                        .append(CodeGenSupport.SEMICOLON);
+            }
             return new Result(buff.toString());
         }
         finally {

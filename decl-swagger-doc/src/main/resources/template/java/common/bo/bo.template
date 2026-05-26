@@ -120,4 +120,23 @@ public class {RESOURCE}BO {
         }
         return {CAMEL(RESOURCE)};
     }
+    
+    public Integer removeAll(AppUser usr, QueryParams params) {
+        StopWatch timer = StopWatch.newTimer();
+        timer.start();
+
+        String confirm = params.param("confirm");
+
+        if (confirm == null || !"Y".equalsIgnoreCase(confirm)) {
+            throw new IllegalArgumentException("This will delete all the entries from the specific table."
+                    + " Provide parameter 'confirm=Y' to confirm");
+        }
+        Integer count = {CAMEL(RESOURCE)}DAO.deleteAll();
+        timer.stop();
+
+        if (LOGGER.isInfoEnabled()) {
+            LOGGER.info("Deleted {} {RESOURCE}(s). Elapsed time(ms): {}", count, timer.elapsedTimeMillis());
+        }
+        return count;
+    }
 }

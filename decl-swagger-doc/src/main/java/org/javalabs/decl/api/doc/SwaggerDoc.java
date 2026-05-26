@@ -62,6 +62,7 @@ public class SwaggerDoc {
     
     public SwaggerDoc() {
         docMapping.put("POST", new PostApiDoc());
+        docMapping.put("POST$batch", new PostBatchApiDoc());
         docMapping.put("GETALL", new GetAllApiDoc());
         docMapping.put("GET", new GetApiDoc());
         docMapping.put("PUT", new PutApiDoc());
@@ -144,9 +145,18 @@ public class SwaggerDoc {
                     operation = loginDoc.generate(resourceMapping.getSchema(), rc.getApi().getConsume());
                 }
                 else {
-                    operation = doc.generate(mapping.getSchema() != null
-                            ? mapping.getSchema()
-                            : resourceMapping.getSchema(), rc.getApi().getConsume());
+                    if (mapping.getMethod().equalsIgnoreCase("POST") && mapping.getUri().endsWith("/$batch")) {
+                        // Special handling for batch api.
+                        doc = docMapping.get(mapping.getMethod().toUpperCase() + "$batch");
+                        operation = doc.generate(mapping.getSchema() != null
+                                ? mapping.getSchema()
+                                : resourceMapping.getSchema(), rc.getApi().getConsume());
+                    }
+                    else {
+                        operation = doc.generate(mapping.getSchema() != null
+                                ? mapping.getSchema()
+                                : resourceMapping.getSchema(), rc.getApi().getConsume());
+                    }
                 }
                 Path path = paths.get(pathUrl);
                 invoke(path, operation, mapping.getMethod());
@@ -271,8 +281,8 @@ public class SwaggerDoc {
     
     private void write(OpenApiModel model, DocOption docOpt) {
         try {
-            String s = MapperUtil.ymlMapper().writeValueAsString(model);
-            ClassWriter.write(new File("/Users/schan280/temp/openapi.yaml"), s, docOpt.getVerbose());
+            // String s = MapperUtil.ymlMapper().writeValueAsString(model);
+            // ClassWriter.write(new File("~/openapi.yaml"), s, docOpt.getVerbose());
             
             DumperOptions options = new DumperOptions();
             options.setIndent(2);

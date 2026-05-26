@@ -8,10 +8,13 @@ import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.CharUtil;
 import org.javalabs.decl.util.ConsoleWriter;
 import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.ObjectCreator;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
+import org.javalabs.jpa.dialect.Dialect;
+import org.javalabs.jpa.dialect.SQLDialect;
 
 /**
  * A maven based java project.
@@ -56,6 +59,27 @@ public class MvnSetupCommand implements Command {
             tmp = tmp.replace("{name}", project.name());
             tmp = tmp.replace("{MAIN_PACKAGE}", project.mainPkg());
             tmp = tmp.replace("{PROJECT}", CharUtil.toCapitalisedCamelCase(project.name()));
+            tmp = tmp.replace("{JDK_VERSION}", project.jdkVersion());
+            
+            if (ctx.currentChain().name().equals("java_project_e2e") || ctx.currentChain().name().equals("java_project_e2e_db")) {
+                Dialect dialect = Enum.valueOf(Dialect.class, project.dbDialect().toUpperCase());
+                SQLDialect sqlDialect = ObjectCreator.create(dialect.dialectClass());
+                String gav = sqlDialect.dependency();
+                String[] arr = gav.split(":");
+
+                String dependency = 
+                        "<dependency>\n" +
+                        "            <groupId>" + arr[0] + "</groupId>\n" +
+                        "            <artifactId>" + arr[1] + "</artifactId>\n" +
+                        "            <version>" + arr[2] + "</version>\n" +
+                        "            <scope>runtime</scope>\n" +
+                        "        </dependency>";
+
+                tmp = tmp.replace("{DB_DEPENDENCY}", dependency);
+            }
+            else {
+                tmp = tmp.replace("{DB_DEPENDENCY}", "");
+            }
             
             File pomFile = new File(project.dir() + File.separator + project.name(), BUILD_FILE);
             ClassWriter.write(pomFile, tmp, project.verbose());

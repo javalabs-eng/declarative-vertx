@@ -83,99 +83,87 @@ Use "command help" for usage of "command". [Example: swagger help]
 
 Description                        : Generate sample vert.x project with api documentation
 Usage                              : project [OPTIONS] ...
-Example 1 (use default fields)     : project -c -d /tmp -n vertx-rest -r Employee
-Example 2 (specify field names)    : project -c -d /tmp -n vertx-rest -r Employee(name,location,salary#long). Default data type: #string
+Example 1 (use default fields)     : project -c -d /tmp -n example-rest -r Employee
+Example 2 (specify field names)    : project -c -d /tmp -n example-rest -r Employee(name, location, salary#long). Default data type: #str
 
 Supported data types               [STR, INT, LONG, FLOAT, BOOL, DATE]
 
 The options are:
 
--c [--create]                            Generate the vert.x project
--p [--platform] <platform_name>          Platform name, E.g., Java, Go, NodeJs [default: Java]
--t [--tech-stack] <techstack>            Techstack, applicable when platform is selected as Java. E.g., Vertx, SpringBoot, JaxRs [default: Vertx]
--d [--dir] <dir_name>                    Root directory of the project to be created
--n [--name] <name>                       Name of the java project
--r [--resource] <resource_name>          Resource name. E.g. Employee, Student, Bank, etc
--v [--verbose]                           Verbose Output. 1 (Granular level logging) | 2 (Summary logging). Default: 2
+-c [--create]                        Generate the vert.x project
+-p [--platform] <platform_name>      Platform name, E.g., Java, Go, NodeJs [default: Java]
+-t [--tech-stack] <techstack>        Techstack, applicable when platform is selected as Java. E.g., Vertx, SpringBoot, JaxRs [default: Vertx]
+-d [--dir] <dir_name>                Root directory of the project to be created
+-n [--name] <name>                   Name of the java project
+-r [--resource] <resource_name>      Resource name. E.g. Employee, Student, Bank, etc
+-v [--verbose]                       Verbose Output. 1 (Granular level logging) | 2 (Summary logging). Default: 2
+-j [--java-version] <ver>            The target java version of the generated application [default: 17]
+-k [--base-package] <com.test.app>   The base package of the generated java sources [default: io.opns.app]
 
 ```
 
-4. Example
+Examples:
 
-* Create a Vert.x REST project.
-`project -c -t vertx -d /Users/schan280/Projects -n vertx-rest -r Employee(name, location, salary#long)`
-
-* Create a Spring boot REST project.
-`project -c -t spring -d /Users/schan280/Projects -n spring-rest -r Bank(name, branch)`
-
-* Create a Jax-Rs REST project.
-`project -c -t jaxrs -d /Users/schan280/Projects -n jaxrs-rest -r Employee(name, location, salary#long)`
-
-5. View advanced options for `project` created from `orm.xml`
-
+* Command to create a Vert.x REST project.
+```
+project -c -t vertx -d /path/to/project_dir -n vertx-rest -r Employee(name, location, salary#long)
 ```
 
+* Command to create a Spring boot REST project.
+```
+project -c -t spring -d /path/to/project_dir -n spring-rest -r Employee(name, location, salary#long)
+```
+
+* Command to create a Jax-Rs REST project.
+```
+project -c -t jaxrs -d /path/to/project_dir -n jaxrs-rest -r Employee(name, location, salary#long)
+```
+
+4. Advanced options for `project` created from an `orm.xml`
+
+```
 Advanced options:
---e2e                                    Generate the end-to-end code driven by the database table design as specified in the orm.xml file
---orm-path                               Path to the orm (Object Relational Mapping) xml file. Mandatory if the --e2e option is specified.
+--e2e                       Generate the end-to-end code driven by the database table design as specified in the orm.xml file
+--orm-path                  Path to the orm (Object Relational Mapping) xml file. Mandatory if the --e2e option is specified.
 
 ```
 
-6. Example
+Example:
 
-* Create a Vert.x REST project.
-`project -c -t vertx -d /Users/schan280/Projects -n folks-rest --e2e --orm-path /path/to/orm.xml`
+* Create a Vert.x REST project from a pre-existing orm.xml file.
+```
+project -c -t vertx -d /path/to/project_dir -n example-rest --e2e --orm-path /path/to/orm.xml
+```
 
 Refer to [Appendix](#app) to see a sample `orm.xml` file.
 
 
-7. View advanced options for `project` created from database
+5. Advanced options for `project` created from a database.
 
 ```
 Advanced options:
---e2e                                    Generate the end-to-end code driven by the database table design as specified in the orm.xml file
---from-db                                Use this option, if you want to connect to a database to extract the table metadata and generate
-                                         the end-to-end code. You have to provide the following options if '--from-db' is specified.
+--e2e                       Generate the end-to-end code driven by the database table design as specified in the orm.xml file
+--from-db                   Use this option, if you want to connect to a database to extract the table metadata and generate
+                            the end-to-end code. You have to provide the following options if '--from-db' is specified.
 
---db-host                                Database host     [default: localhost]
---db-port                                Database port     [default: 5432, indicating a local PostgreSQL instance]
---db-name                                Database name     [default: testdb]
---db-schema                              Database schema   [default: public]
---db-user                                Database user     [default: test]
---db-password                            Database password
---db-dialect                             Dialect name      [default: POSTGRES]
-
-```
-
-8. Example
-
-* Create a Vert.x REST project.
-```
-project -c -t vertx -d /Users/schan280/Projects -n folks-rest --e2e --from-db --db-host localhost --db-port 5432 --db-name testdb --db-user test --db-password pwd --db-dialect postgres
-```
-
-Note:
-1. Post code generation modify the persistence.xml file and replace the in memory h2 db entry with your db details.
-```
-<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/testdb"/>
-```
-
-2. Add the db driver dependency in the `pom.xml` file
+--db-host                   Database host     [default: localhost]
+--db-port                   Database port     [default: 5432, indicating a local PostgreSQL instance]
+--db-name                   Database name     [default: testdb]
+--db-schema                 Database schema   [default: public]
+--db-user                   Database user     [default: test]
+--db-password               Database password
+--db-dialect                Dialect name      [default: postgres]
 
 ```
-<dependency>
-    <groupId>org.postgresql</groupId>
-    <artifactId>postgresql</artifactId>
-    <version>42.7.5</version>
-    <scope>runtime</scope>
-</dependency>
+
+Example
+
+* Create a Vert.x REST project from a remote database (from a pre-existing set of tables).
+```
+project -c -t vertx -d /path/to/project_dir -n example-rest --e2e --from-db --db-host localhost --db-port 5432 --db-name testdb --db-user test --db-password test@123 --db-dialect postgres
 ```
 
-To run the application, use
-```
-java -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=9792,server=y,suspend=n -Ddata.source=org.javalabs.jpa.ds.JpaLiteDataSource -jar target/folks-rest-0.0.1-SNAPSHOT.jar
-```
-
+**Not:** The generated project will have a `README.md` file. Follow the file for further instruction.
 
 <a name="sg"/>
 
@@ -250,6 +238,10 @@ After enabling Simple HTTPServer successfully, it will start serving files throu
 Step 5: Type the url: http://localhost:8000 on the browser and you should see the API spec.
 
 ### Sample ORM File
+
+This orm.xml file has schema definition for the following two tables:
+1. `products`
+2. `books`
 
 ```
 <?xml version="1.0" encoding="UTF-8" ?>

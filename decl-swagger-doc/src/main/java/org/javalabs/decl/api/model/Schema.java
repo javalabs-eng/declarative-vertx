@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author schan280
  */
-@JsonPropertyOrder({"type", "format", "properties", "externalDocs", "required"})
+@JsonPropertyOrder({"type", "items", "format", "properties", "externalDocs", "required"})
 public class Schema {
     
     // This key is not printed.
@@ -21,6 +21,9 @@ public class Schema {
     private Map<String, Property> properties;
     private ExternalDoc externalDocs;
     private List<String> required;
+    
+    // For nested object or array.
+    private Schema items;
     
     public Schema() {}
 
@@ -75,5 +78,13 @@ public class Schema {
 
     public void setRequired(List<String> required) {
         this.required = required;
+    }
+
+    public Schema getItems() {
+        return items;
+    }
+
+    public void setItems(Schema items) {
+        this.items = items;
     }
 }

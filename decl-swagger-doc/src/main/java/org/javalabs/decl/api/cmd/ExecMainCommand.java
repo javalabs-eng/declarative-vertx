@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
+import org.javalabs.decl.util.CharUtil;
 import org.javalabs.decl.util.ConsoleWriter;
 import org.javalabs.decl.util.FileHandlerUtil;
 import org.javalabs.decl.workflow.Command;
@@ -19,7 +20,6 @@ import org.javalabs.decl.writer.ClassWriter;
 public class ExecMainCommand implements Command {
     
     private static final String MAIN_TEMPLATE = "main_class.template";
-    private static final String MAIN_CLASS_NAME  = "ExampleMain.java";
     
     private final String name;
     
@@ -44,9 +44,12 @@ public class ExecMainCommand implements Command {
                     + project.stack().name().toLowerCase() + File.separator
                     + MAIN_TEMPLATE;
                     
+            String mainClassName = CharUtil.toCapitalisedCamelCase(project.name()) + "Main";
+            
             byte[] buff = FileHandlerUtil.read(template);
             String content = new String(buff);
             content = content.replace("{MAIN_PACKAGE}", project.mainPkg());
+            content = content.replace("{MAIN_CLASS}", mainClassName);
             
             String destDir = projectRoot.getAbsolutePath()
                     + File.separator
@@ -54,7 +57,7 @@ public class ExecMainCommand implements Command {
                     + File.separator
                     + project.mainPkg().replace('.', '/');
             
-            File file = new File(destDir + File.separator + MAIN_CLASS_NAME);
+            File file = new File(destDir + File.separator + mainClassName + ".java");
             ClassWriter.write(file, content, project.verbose());
             
             if (project.verbose() <= 2) {

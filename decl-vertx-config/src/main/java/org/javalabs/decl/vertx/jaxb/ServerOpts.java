@@ -21,6 +21,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *         &lt;element name="ssl" type="{http://www.w3.org/2001/XMLSchema}Boolean"/&gt;
  *         &lt;element name="host" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="port" type="{http://www.w3.org/2001/XMLSchema}unsignedInt"/&gt;
+ *         &lt;element name="sys-port" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="accept-backlog" type="{http://www.w3.org/2001/XMLSchema}Integer"/&gt;
  *         &lt;element name="client-auth" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="sni" type="{http://www.w3.org/2001/XMLSchema}Boolean"/&gt;
@@ -40,6 +41,7 @@ import jakarta.xml.bind.annotation.XmlType;
     "ssl",
     "host",
     "port",
+    "sysPort",
     "acceptBacklog",
     "clientAuth",
     "sni",
@@ -57,6 +59,9 @@ public class ServerOpts {
     
     @XmlElement(required = true, defaultValue = "8080")
     protected Integer port;
+    
+    @XmlElement(required = true)
+    protected String sysPort;
     
     @XmlElement(name = "accept-backlog", defaultValue = "-1")
     protected Integer acceptBacklog;
@@ -120,6 +125,10 @@ public class ServerOpts {
      *
      */
     public Integer getPort() {
+        if (sysPort != null && sysPort.trim().length() > 0) {
+            String portVal = _sys(sysPort);
+            return Integer.valueOf(portVal);
+        }
         return port;
     }
 
@@ -130,6 +139,26 @@ public class ServerOpts {
      *
      */
     public void setPort(Integer value) {
+        this.port = value;
+    }
+
+    /**
+     * Gets the value of the port system property.
+     *
+     * @return possible object is {@link String }
+     *
+     */
+    public Integer getSysPort() {
+        return port;
+    }
+
+    /**
+     * Sets the value of the port system property.
+     *
+     * @param value allowed object is {@link String }
+     *
+     */
+    public void setSysPort(Integer value) {
         this.port = value;
     }
 
@@ -220,6 +249,7 @@ public class ServerOpts {
     /**
      * Gets the value of the registerWriteHandler property.
      *
+     * @return 
      */
     public Boolean isRegisterWriteHandler() {
         return registerWriteHandler;
@@ -228,9 +258,33 @@ public class ServerOpts {
     /**
      * Sets the value of the registerWriteHandler property.
      *
+     * @param value
      */
     public void setRegisterWriteHandler(Boolean value) {
         this.registerWriteHandler = value;
+    }
+    
+    public String _sys(String value) {
+        int start = value.indexOf("system(");
+        if (start == -1) {
+            start = value.indexOf("SYSTEM(");
+        }
+        if (start == 0) {
+            int end = value.indexOf(")");
+            if (end > 0) {
+                String param = value.substring(7, end);
+                String[] tmp = param.split("::");
+                if (tmp.length == 2) {
+                    String val = System.getProperty(tmp[0], tmp[1]);
+                    return val;
+                }
+                else {
+                    String val = System.getProperty(tmp[0]);
+                    return val;
+                }
+            }
+        }
+        return value;
     }
 
 }

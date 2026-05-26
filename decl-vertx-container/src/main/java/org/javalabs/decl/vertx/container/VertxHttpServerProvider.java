@@ -3,7 +3,6 @@ package org.javalabs.decl.vertx.container;
 import io.vertx.core.json.Json;
 import org.javalabs.decl.container.spi.EmbeddedHttpServer;
 import org.javalabs.decl.container.spi.HttpServerProvider;
-import org.javalabs.decl.vertx.config.internal.ConfigStorage;
 import org.javalabs.decl.vertx.config.parser.ServerConfigParser;
 import org.javalabs.decl.vertx.jaxb.WebServerConfig;
 import org.slf4j.Logger;
@@ -45,7 +44,7 @@ public class VertxHttpServerProvider extends HttpServerProvider {
         else {
             httpConfig = parser.read();
         }
-        ConfigStorage.get().store(httpConfig);
+        // ConfigStorage.get().store(httpConfig);
         
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Read default server configuration file");

@@ -58,6 +58,13 @@ public interface {RESOURCE}DAO {
     void delete({RESOURCE} record);
     
     /**
+     * Delete all the entries from the database.
+     * 
+     * @return Integer  The number of records deleted.
+     */
+    Integer deleteAll();
+    
+    /**
      * Retrieve the entry from the database, as identified by this primary key.
      * If no matching record is found in the DB, then this api will return null.
      * 

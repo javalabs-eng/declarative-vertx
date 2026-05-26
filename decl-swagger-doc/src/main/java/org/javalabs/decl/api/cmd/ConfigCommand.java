@@ -2,15 +2,21 @@ package org.javalabs.decl.api.cmd;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.ConsoleWriter;
 import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.MapperUtil;
+import org.javalabs.decl.util.ObjectCreator;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
+import org.javalabs.jpa.dialect.Dialect;
+import org.javalabs.jpa.dialect.SQLDialect;
 
 /**
  *
@@ -53,6 +59,17 @@ public class ConfigCommand implements Command {
                     + JSON_TEMPLATE;
             
             byte[] buff = FileHandlerUtil.read(template);
+            
+            Map<String, Object> map = MapperUtil.decode(buff, HashMap.class);
+            Map<String, Object> dbConfig = (Map)map.get("db.config");
+            Dialect dialect = Enum.valueOf(Dialect.class, project.dbDialect().toUpperCase());
+            SQLDialect sqlDialect = ObjectCreator.create(dialect.dialectClass());
+            
+            dbConfig.put("url", sqlDialect.db_url(project.dbHost(), project.dbPort(), project.dbName()));
+            dbConfig.put("user", project.dbUser());
+            dbConfig.put("password", project.dbPassword());
+            
+            buff = MapperUtil.prettyWrite(map);
             
             // Create an empty json file "app.json" 
             String destDir = projectRoot.getAbsolutePath()

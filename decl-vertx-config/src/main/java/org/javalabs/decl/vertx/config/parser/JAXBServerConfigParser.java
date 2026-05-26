@@ -18,6 +18,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.javalabs.decl.util.StreamUtil;
+import org.javalabs.decl.vertx.config.internal.ConfigStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,6 +70,8 @@ public final class JAXBServerConfigParser implements ServerConfigParser {
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("Parsed http server configuration file: {}", xmlConfig);
             }
+            ConfigStorage.get().store(serverConfig);
+            
             return serverConfig;
         }
         catch (Exception e) {

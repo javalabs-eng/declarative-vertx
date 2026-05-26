@@ -17,8 +17,8 @@ public class ProjectExecutor implements ExecutorBase {
     
     private final String name = "project";
     private final String description = "Generate sample vert.x project with api documentation";
-    private final List<String> longOptions = Arrays.asList("--create", "--platform", "--tech-stack", "--build-tool", "--dir", "--name", "--resource", "--verbose", "--e2e", "--orm-path", "--from-db");
-    private final List<String> shortOptions = Arrays.asList("-c", "-p", "-t", "-b", "-d", "-n", "-r", "-v", "-a", "-o", "-f");
+    private final List<String> longOptions = Arrays.asList("--create", "--platform", "--tech-stack", "--build-tool", "--dir", "--name", "--resource", "--verbose", "--e2e", "--orm-path", "--from-db", "--java-version", "--base-package");
+    private final List<String> shortOptions = Arrays.asList("-c", "-p", "-t", "-b", "-d", "-n", "-r", "-v", "-a", "-o", "-f", "-j", "-k");
     
     public ProjectExecutor() {}
 
@@ -89,6 +89,12 @@ public class ProjectExecutor implements ExecutorBase {
             else if (options[i].equals("-n") || options[i].equals("--name")) {
                 verifyArg(options[i], options[i + 1]);
                 project.name(options[i + 1]);
+            }
+            else if (options[i].equals("-j") || options[i].equals("--java-version")) {
+                project.jdkVersion(options[i + 1]);
+            }
+            else if (options[i].equals("-k") || options[i].equals("--base-package")) {
+                project.basePkg(options[i + 1]);
             }
             else if (options[i].equals("-r") || options[i].equals("--resource")) {
                 String rTmp = options[i + 1];

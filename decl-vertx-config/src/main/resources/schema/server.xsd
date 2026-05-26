@@ -10,6 +10,7 @@
               <xs:element name="ssl" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />
               <xs:element name="host" type="xs:string" minOccurs="0" maxOccurs="1" default="0.0.0.0" />
               <xs:element name="port" type="xs:unsignedInt" minOccurs="0" maxOccurs="1" default="8080" />
+              <xs:element name="sys-port" type="xs:string" minOccurs="0" maxOccurs="1" />
               <xs:element name="accept-backlog" type="xs:byte" minOccurs="0" maxOccurs="1" default="-1" />
               <xs:element name="client-auth" type="xs:string" minOccurs="0" maxOccurs="1" default="NONE" />
               <xs:element name="sni" type="xs:boolean" minOccurs="0" maxOccurs="1" default="false" />

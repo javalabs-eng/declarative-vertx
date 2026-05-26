@@ -64,6 +64,12 @@ public class WorkspaceCommand implements Command {
             // Create test resource directory
             File testResourceDir = new File(projectRoot, project.testResourceDir());
             testResourceDir.mkdirs();
+            
+            // Create test integ directory
+            File testIntegDir = new File(projectRoot, project.testDir()
+                    + File.separator + project.basePkg().replace('.', '/')
+                    + File.separator + "integ");
+            testIntegDir.mkdirs();
 
             File targetDir = new File(projectRoot, project.targetDir());
             targetDir.mkdirs();
@@ -79,37 +85,43 @@ public class WorkspaceCommand implements Command {
                 }
             }
             
-            // Create db schema directory.
-            File dbSchemaDir = new File(projectRoot, project.dbDir());
-            dbSchemaDir.mkdirs();
-
-            // Create source packages
-            File coreMDir = new File(srcDir, project.corePkg().replace('.', '/'));
-            coreMDir.mkdirs();
-            
-            File utilMDir = new File(srcDir, project.utilPkg().replace('.', '/'));
-            utilMDir.mkdirs();
-            
-            File cfgMDir = new File(srcDir, project.configPkg().replace('.', '/'));
-            cfgMDir.mkdirs();
-            
+            // Create the handler package
             File srcHDir = new File(srcDir, project.handlerPkg().replace('.', '/'));
             srcHDir.mkdirs();
             
-            File srcBDir = new File(srcDir, project.boPkg().replace('.', '/'));
-            srcBDir.mkdirs();
-            
-            File srcDDir = new File(srcDir, project.daoPkg().replace('.', '/'));
-            srcDDir.mkdirs();
-
+            // Create the model package
             File srcMDir = new File(srcDir, project.modelPkg().replace('.', '/'));
             srcMDir.mkdirs();
             
-            File srcADir = new File(srcDir, project.authPkg().replace('.', '/'));
-            srcADir.mkdirs();
-            
+            // Create the main package
             File mainDir = new File(srcDir, project.mainPkg().replace('.', '/'));
             mainDir.mkdirs();
+            
+            // Following packages are needed only if it is an end-to-end project.
+            if (ctx.currentChain().name().equals("java_project_e2e") || ctx.currentChain().name().equals("java_project_e2e_db")) {
+                // Create db schema directory.
+                File dbSchemaDir = new File(projectRoot, project.dbDir());
+                dbSchemaDir.mkdirs();
+
+                // Create source packages
+                File coreMDir = new File(srcDir, project.corePkg().replace('.', '/'));
+                coreMDir.mkdirs();
+
+                File utilMDir = new File(srcDir, project.utilPkg().replace('.', '/'));
+                utilMDir.mkdirs();
+
+                File cfgMDir = new File(srcDir, project.configPkg().replace('.', '/'));
+                cfgMDir.mkdirs();
+
+                File srcBDir = new File(srcDir, project.boPkg().replace('.', '/'));
+                srcBDir.mkdirs();
+
+                File srcDDir = new File(srcDir, project.daoPkg().replace('.', '/'));
+                srcDDir.mkdirs();
+
+                File srcADir = new File(srcDir, project.authPkg().replace('.', '/'));
+                srcADir.mkdirs();
+            }
             
             if (project.verbose() <= 2) {
                 ConsoleWriter.timingPrintln("Created package hierarchy");

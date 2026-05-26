@@ -47,6 +47,7 @@ public class VtxExecMainCommand implements Command {
             byte[] buff = FileHandlerUtil.read(template);
             String content = new String(buff);
             content = content.replace("{PACKAGE}", project.mainPkg());
+            content = content.replace("{CORE_PACKAGE}", project.corePkg());
             content = content.replace("{PROJECT}", CharUtil.toCapitalisedCamelCase(project.name()));
             
             String destDir = projectRoot.getAbsolutePath()

@@ -13,7 +13,6 @@ import java.util.Set;
 import org.javalabs.decl.container.Container;
 import org.javalabs.decl.container.ContainerConfig;
 import org.javalabs.decl.container.ContainerException;
-import org.javalabs.decl.vertx.config.internal.ConfigStorage;
 import org.javalabs.decl.vertx.config.parser.WebConfigParser;
 import org.javalabs.decl.vertx.jaxb.Verticle;
 import org.javalabs.decl.vertx.jaxb.Verticles;
@@ -70,7 +69,7 @@ public abstract class VertxContainer extends VertxConfigSupport implements Conta
         // 3. server.xml contains reference to routing-config.xml. This file contain the Vert.x API route and corresponding handler methods.
         
         VertxWeb vConfig = webParser.read();
-        ConfigStorage.get().store(vConfig);
+        // ConfigStorage.get().store(vConfig);
         
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Read default vertx web configuration file");

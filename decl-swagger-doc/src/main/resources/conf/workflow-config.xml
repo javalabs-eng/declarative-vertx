@@ -92,7 +92,7 @@
                  order="13"
                  backtrack="true"/>
 
-        <command name="mvn_conclude"
+        <command name="print_dir"
                  class="org.javalabs.decl.api.cmd.PrintDirCommand"
                  order="14"
                  backtrack="true"/>
@@ -107,10 +107,10 @@
                  order="16"
                  backtrack="true"/>
 
-        <command name="key_store"
+        <!--command name="key_store"
                  class="org.javalabs.decl.api.cmd.KeyStoreCommand"
                  order="17"
-                 backtrack="true"/>
+                 backtrack="true"/-->
     </chain>
     
     <chain name="java_project_e2e" class="org.javalabs.decl.api.chain.JavaProjectChain">
@@ -356,34 +356,39 @@
                  order="20"
                  backtrack="true"/>
 
+        <command name="test"
+                 class="org.javalabs.decl.api.cmd.TestCaseCommand"
+                 order="21"
+                 backtrack="true"/>
+
         <command name="readme"
                  class="org.javalabs.decl.api.cmd.ReadMeCommand"
-                 order="21"
+                 order="22"
                  backtrack="true"/>
 
         <command name="mvn_conclude"
                  class="org.javalabs.decl.api.cmd.MvnConcludeCommand"
-                 order="22"
+                 order="23"
                  backtrack="true"/>
 
         <command name="print_dir"
                  class="org.javalabs.decl.api.cmd.PrintDirCommand"
-                 order="23"
+                 order="24"
                  backtrack="true"/>
 
         <command name="apidoc"
                  class="org.javalabs.decl.api.cmd.ApiDocCommand"
-                 order="24"
+                 order="25"
                  backtrack="true"/>
 
         <command name="redoc"
                  class="org.javalabs.decl.api.cmd.ReDocCommand"
-                 order="25"
+                 order="26"
                  backtrack="true"/>
 
         <command name="key_store"
                  class="org.javalabs.decl.api.cmd.KeyStoreCommand"
-                 order="26"
+                 order="27"
                  backtrack="true"/>
     </chain>
 </workflow-config>

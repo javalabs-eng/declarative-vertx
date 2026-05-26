@@ -20,6 +20,7 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.javalabs.decl.util.StreamUtil;
+import org.javalabs.decl.vertx.config.internal.ConfigStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,6 +71,8 @@ public final class JAXBWebConfigParser implements WebConfigParser {
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("Parsed vertx web configuration file: {}", xmlConfig);
             }
+            ConfigStorage.get().store(webConfig);
+            
             return webConfig;
         }
         catch (Exception e) {

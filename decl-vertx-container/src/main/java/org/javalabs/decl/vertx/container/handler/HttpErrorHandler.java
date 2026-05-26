@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 import java.nio.file.NoSuchFileException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.javalabs.decl.vertx.config.model.ServerMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +54,9 @@ public class HttpErrorHandler implements Handler<RoutingContext> {
         
         // Start exception handling ...
         if (error instanceof IllegalArgumentException
-            || error instanceof IllegalAccessException
-            || error instanceof HttpException) {
+                || error instanceof NoSuchElementException
+                || error instanceof IllegalAccessException
+                || error instanceof HttpException) {
             
             LOGGER.error("Error Handler Invoked. Msg: " + (error != null ? error.getMessage() : "NONE"));
         }
@@ -119,6 +121,10 @@ public class HttpErrorHandler implements Handler<RoutingContext> {
                 else {
                     errorMsg.setMessage("Connection to server server timed-out");
                 }
+            }
+            else if (error instanceof NoSuchElementException) {
+                errorMsg.setCode(HttpURLConnection.HTTP_NOT_FOUND);
+                errorMsg.setMessage(error.getMessage());
             }
             else if (error instanceof IllegalAccessException) {
                 errorMsg.setCode(HttpURLConnection.HTTP_UNAUTHORIZED);

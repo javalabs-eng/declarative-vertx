@@ -48,6 +48,7 @@ public class ReadMeCommand implements Command {
             String tmp = new String(buff);
             tmp = tmp.replace("{name}", project.name());
             tmp = tmp.replace("{URI}", "/api/v1/<resource_name>");
+            tmp = tmp.replace("{LOWER{APP}}", project.name());
             
             File readmeFile = new File(projectRoot + File.separator + README_MD);
             ClassWriter.write(readmeFile, tmp, project.verbose());

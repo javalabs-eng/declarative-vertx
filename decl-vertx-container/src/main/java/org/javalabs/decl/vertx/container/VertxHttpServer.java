@@ -89,7 +89,7 @@ public class VertxHttpServer extends ServerConfigSupport implements EmbeddedHttp
         if (config.getRoutingConfig() != null) {
             try {
                 RoutingConfig rc = parser.read();
-                ConfigStorage.get().store(rc);
+                // ConfigStorage.get().store(rc);
             }
             catch (RuntimeException e) {
                 LOGGER.error(e.getMessage());

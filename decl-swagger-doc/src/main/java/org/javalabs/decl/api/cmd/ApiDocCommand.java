@@ -55,15 +55,17 @@ public class ApiDocCommand implements Command {
             URLClassLoader loader = new URLClassLoader(urls, this.getClass().getClassLoader());
             Thread.currentThread().setContextClassLoader(loader);
 
-            // Compile the AuthToken.java
-            String authTokenFile = projectRoot.getAbsolutePath()
-                    + File.separator
-                    + project.srcDir()
-                    + File.separator
-                    + project.authPkg().replace('.', '/')
-                    + File.separator
-                    + "AuthToken.java";
-            DiscCompiler.compile(project.generated(), project.authPkg(), "AuthToken", authTokenFile);
+            if (ctx.currentChain().name().equals("java_project_e2e") || ctx.currentChain().name().equals("java_project_e2e_db")) {
+                // Compile the AuthToken.java
+                String authTokenFile = projectRoot.getAbsolutePath()
+                        + File.separator
+                        + project.srcDir()
+                        + File.separator
+                        + project.authPkg().replace('.', '/')
+                        + File.separator
+                        + "AuthToken.java";
+                DiscCompiler.compile(project.generated(), project.authPkg(), "AuthToken", authTokenFile);
+            }
             
             // Now, start compiling the other model classes
             for (Map.Entry<String, JavaClass> me: classes.entrySet()) {

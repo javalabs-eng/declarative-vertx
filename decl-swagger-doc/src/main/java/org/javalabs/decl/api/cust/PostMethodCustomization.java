@@ -146,81 +146,141 @@ public class PostMethodCustomization extends AbstractCustomization {
     }
 
     @Override
-    public Result entry(Project project) {
+    public Result entry(Project project, JavaClass model) {
         final StringBuilder buff = new StringBuilder(256);
         
         try {
-            // Employee element = Json.decodeValue(ctx.body().buffer(), Employee.class);
-            // buff.append("\n\t\t\t")
-            //         .append(project.resource()).append(" ").append("element")
-            //         .append(" = ")
-            //         .append("Json.decodeValue")
-            //         .append("(")
-            //             .append("ctx.body().buffer()").append(", ")
-            //             .append(project.resource()).append(".class")
-            //         .append(")")
-            //         .append(";");
+            JavaVariable idVar = idField(model);
+            String idGetter = null;
+            
+            if (idVar != null) {
+                idGetter = getter(idVar.name());
 
-            JavaVariable var = idField(project.model());
-            String getter = getter(var.name());
+                // if (element.getId() != null) {
+                //     throw new IllegalArgumentException("Should not specify id. It is auto-generated");
+                // }
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("if")
+                        .append(CodeGenSupport.SPACE)
+                        .append("(")
+                        .append("element")
+                        .append(CodeGenSupport.STOP)
+                        .append(idGetter)
+                        .append("()")
+                        .append(CodeGenSupport.SPACE)
+                        .append("!=")
+                        .append(CodeGenSupport.SPACE)
+                        .append("null")
+                        .append(")")
+                        .append(CodeGenSupport.SPACE)
+                        .append("{")
+                        .append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("throw new IllegalArgumentException(\"Should not specify id. It is auto-generated\")")
+                        .append(CodeGenSupport.SEMICOLON)
+                        .append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("}");
 
-            // if (element.getId() != null) {
-            //     throw new IllegalArgumentException("Should not specify id. It is auto-generated");
-            // }
-            buff.append("\n\t\t\t")
-                    .append("if ").append("(").append("element").append(".").append(getter).append("()")
-                    .append(" != ").append("null").append(")").append("{")
-                    .append("\n\t\t\t\t").append("throw new IllegalArgumentException(\"Should not specify id. It is auto-generated\")").append(";")
-                    .append("\n\t\t\t").append("}");
+                String setter = setter(idVar.name());
 
-            String setter = setter(var.name());
-
-            // element.setId(COUNTER.incrementAndGet());
-            buff.append("\n\t\t\t")
-                    .append("element").append(".").append(setter)
-                    .append("(")
-                    .append(var.type() == String.class ? "String.valueOf(" : "")
-                    .append("COUNTER.incrementAndGet()")
-                    .append(var.type() == String.class ? ")" : "")
-                    .append(")")
-                    .append(";");
+                // element.setId(COUNTER.incrementAndGet());
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("element")
+                        .append(CodeGenSupport.STOP)
+                        .append(setter)
+                        .append("(")
+                        .append(idVar.type() == String.class ? "String.valueOf(" : "")
+                        .append("COUNTER.incrementAndGet()")
+                        .append(")")
+                        .append(CodeGenSupport.SEMICOLON);
+            }
 
             // element.setCreatedOn(new Date());
-            String cg = createdOnSetter(project.model());
+            String cg = createdOnSetter(model);
             if (cg != null) {
-                buff.append("\n\t\t\t")
-                        .append("element").append(".").append(cg).append("(")
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("element")
+                        .append(CodeGenSupport.STOP)
+                        .append(cg)
+                        .append("(")
                         .append("new Date()")
                         .append(")")
-                        .append(";");
+                        .append(CodeGenSupport.SEMICOLON);
             }
 
             // store.put(element.getId(), element);
-            buff.append("\n\n\t\t\t").append("// Keep it in the in-memory store.");
-            buff.append("\n\t\t\t")
-                    .append("store.put").append("(")
-                    .append(Number.class.isAssignableFrom(var.type()) ? "String.valueOf(" : "")
-                    .append("element").append(".").append(getter).append("()")
-                    .append(Number.class.isAssignableFrom(var.type()) ? ")" : "")
-                    .append(", ")
-                    .append("element")
-                    .append(")")
-                    .append(";");
+            if (idVar != null) {
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("// Keep it in the in-memory store.");
 
-            // element.setCanonicalLink(ctx.normalizedPath() + "/" + element.getId());
-            buff.append("\n\n\t\t\t").append("// Add the canonical link.");
-            buff.append("\n\t\t\t")
-                    .append("element.setCanonicalLink").append("(")
-                    .append("\"api/v1\"").append(" + \"/\" + ").append("\"").append(project.inputResource().resource().toLowerCase()).append("s\"")
-                    .append(" + ").append("\"/\"")
-                    .append(" + ").append("element").append(".").append(getter).append("()")
-                    .append(")")
-                    .append(";");
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("store.put")
+                        .append("(")
+                        .append(Number.class.isAssignableFrom(idVar.type()) ? "String.valueOf(" : "")
+                        .append("element").append(".").append(idGetter).append("()")
+                        .append(Number.class.isAssignableFrom(idVar.type()) ? ")" : "")
+                        .append(CodeGenSupport.COMMA)
+                        .append(CodeGenSupport.SPACE)
+                        .append("element")
+                        .append(")")
+                        .append(CodeGenSupport.SEMICOLON);
+
+                // element.setCanonicalLink(ctx.normalizedPath() + "/" + element.getId());
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("// Add the canonical link.");
+                
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("element.setCanonicalLink")
+                        .append("(")
+                        .append("\"api/v1\"").append(" + \"/\" + ").append("\"").append(project.inputResource().resource().toLowerCase()).append("s\"")
+                        .append(" + ").append("\"/\"")
+                        .append(" + ").append("element").append(".").append(idGetter).append("()")
+                        .append(")")
+                        .append(CodeGenSupport.SEMICOLON);
+            }
 
             // return element;
-            buff.append("\n\t\t\t").append("return element").append(";");
+            buff.append(CodeGenSupport.NEW_LINE)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append("return")
+                    .append(CodeGenSupport.SPACE)
+                    .append("element")
+                    .append(CodeGenSupport.SEMICOLON);
+            
             return new Result(buff.toString());
-        } finally {
+        }
+        finally {
             buff.delete(0, buff.length());
         }
     }

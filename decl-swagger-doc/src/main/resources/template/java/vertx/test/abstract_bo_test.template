@@ -1,0 +1,34 @@
+package {PACKAGE}.integ;
+
+import io.opns.app.auth.AppUser;
+import io.opns.app.auth.AppUserImpl;
+import io.opns.app.auth.Principal;
+import io.opns.app.auth.UserPrincipal;
+import java.util.Arrays;
+
+/**
+ *
+ * @author schan280
+ */
+public abstract class AbstractBOTest {
+    
+    protected static AppUser user = null;
+    
+    public static void setup() {
+        user = createUser();
+    }
+    
+    protected static AppUser createUser() {
+        return createUser("test", "test@javalabs.org", "test", null, "test@javalabs.org");
+    }
+
+    protected static AppUser createUser(String name, String email, String id, String prev, String sub) {
+        Principal principal = new UserPrincipal(name
+                , email
+                , id
+                , prev
+                , Arrays.asList(sub));
+
+        return new AppUserImpl(principal);
+    }
+}

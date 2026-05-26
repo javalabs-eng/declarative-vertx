@@ -20,11 +20,11 @@ public class GetAllMethodCustomization extends AbstractCustomization {
     
     @Override
     public Result boEntry(Project project, JavaClass model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Result entry(Project project) {
+    public Result entry(Project project, JavaClass model) {
         final StringBuilder buff = new StringBuilder(256);
         
         try {
@@ -85,9 +85,9 @@ public class GetAllMethodCustomization extends AbstractCustomization {
                     .append(project.inputResource().resource()).append(" element").append(" : ").append("result")
                     .append(")").append(" {");
             
-            String idField = idField(project.model()).name();
-            String nameField = nameField(project.model());
-            String createdField = createdOnField(project.model());
+            String idField = idField(model).name();
+            String nameField = nameField(model);
+            String createdField = createdOnField(model);
             
             buff.append("\n\t\t\t\t").append("Map<String, Object> map = new LinkedHashMap<>()").append(";");
             buff.append("\n\t\t\t\t")

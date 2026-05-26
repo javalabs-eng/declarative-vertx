@@ -2,7 +2,7 @@ package org.javalabs.decl.api.cmd;
 
 import java.io.File;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
@@ -51,7 +51,13 @@ public class ModelCommand implements Command {
             for (int i = 0; i < fields.size(); i ++) {
                 String field = fields.get(i);
                 Class<?> dataType = dataTypes.get(i);
-                jClass.addVar(new JavaVariable(jClass).type(dataType).name(field));
+                JavaVariable jVar = new JavaVariable(jClass).type(dataType).name(field);
+                
+                String lowerField = field.toLowerCase();
+                if (lowerField.endsWith("id") || lowerField.endsWith("identifier")) {
+                    jVar.idField(Boolean.TRUE);
+                }
+                jClass.addVar(jVar);
             }
             // Add the special variable and method canonicalLink
             jClass.addVar(new JavaVariable(jClass).type(String.class).name("canonicalLink"));
@@ -74,8 +80,8 @@ public class ModelCommand implements Command {
             ClassWriter.write(itemFile, content, project.verbose());
 
             // Set the JavaClass as it is needed while creating other handler classes.
-            project.model(jClass);
-            ctx.add("resource.names", Set.of(jClass.name()));
+            // project.model(jClass);
+            ctx.add("resource.names", Map.of(jClass.name(), jClass));
 
             if (project.verbose() <= 2) {
                 ConsoleWriter.timingPrintln("Created model file: " + ConsoleWriter.ANSI_GREEN + (destDir + File.separator + jClass.name() + ".java") + ConsoleWriter.ANSI_RESET);

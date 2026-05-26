@@ -50,6 +50,12 @@ public class {RESOURCE}DAOImpl implements {RESOURCE}DAO {
     public void delete({RESOURCE} record) {
         em.remove(record);
     }
+    
+    @Override
+    public Integer deleteAll() {
+        return em.createNativeQuery("DELETE FROM " + TABLE)
+                .executeUpdate();
+    }
 
     @Override
     public {RESOURCE} find({RESOURCE}.{RESOURCE}PK pk) {

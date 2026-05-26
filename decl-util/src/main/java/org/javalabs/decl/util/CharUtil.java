@@ -53,6 +53,9 @@ public final class CharUtil {
     }
     
     public static String singular(String name) {
+        if (name.toLowerCase().endsWith("info")) {
+            return name;
+        }
         String ret = CharUtil.toCapitalisedCamelCase(name);
         if (ret.endsWith("ies")) {
             ret = ret.substring(0, ret.length() - 3) + "y";
@@ -78,6 +81,25 @@ public final class CharUtil {
             ret = ret.substring(0, ret.length() - 1);
         }
         return ret;
+    }
+    
+    public static String plural(String name) {
+        String lowerNoun = name.toLowerCase();
+
+        // 1. Handle ending with "y" (consonant + y -> ies)
+        if (lowerNoun.endsWith("y") && ! vowel(lowerNoun.charAt(lowerNoun.length() - 2))) {
+            return name.substring(0, name.length() - 1) + "ies";
+        }
+        
+        // 2. Handle "hissing" sounds (s, sh, ch, x, z -> es)
+        if (lowerNoun.endsWith("s") || lowerNoun.endsWith("sh") || 
+            lowerNoun.endsWith("ch") || lowerNoun.endsWith("x") || 
+            lowerNoun.endsWith("z")) {
+            return name + "es";
+        }
+
+        // 3. Default: just add "s"
+        return name + "s";
     }
     
     public static boolean vowel(char ch) {

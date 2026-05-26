@@ -5,6 +5,7 @@ import {AUTH_PACKAGE}.AppUser;
 import {AUTH_PACKAGE}.AppUserImpl;
 import {AUTH_PACKAGE}.UserPrincipal;
 import {CONFIG_PACKAGE}.ApplicationConfiguration;
+import {MODEL_PACKAGE}.ItemList;
 import {UTIL_PACKAGE}.QueryParams;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.RoutingContext;
@@ -65,6 +66,38 @@ public abstract class AbstractHandler {
         }
         QueryParams params = new QueryParams(map);
         return params;
+    }
+
+    protected ItemList build(QueryParams params, List<Object> list, RoutingContext ctx) {
+        int total = list.size();
+        
+        // Build the item list.
+        String path = ctx.normalizedPath();
+        ItemList itemList = new ItemList(total, list, path);
+        
+        itemList.setHasMore(itemList.getTotal() > (params.offset() + params.limit()));
+        
+        String sep = "?";
+        int idx = 0;
+        
+        for (String key : params.keys()) {
+            String val = params.param(key);
+            if (! key.equals("offset") && ! key.equals("limit")) {
+                path += sep + key + "=" + val;
+                idx ++;
+
+                if (idx > 0) {
+                    sep = "&";
+                }
+            }
+        }
+        if (itemList.isHasMore()) {
+            itemList.setNextLink(path + sep + "offset=" + (params.offset() + params.limit()) + "&limit=" + params.limit());
+        }
+        if (params.offset() - params.limit() >= 0) {
+            itemList.setPreviousLink(path + sep + "offset=" + (params.offset() + params.limit()) + "&limit=" + params.limit());
+        }
+        return itemList;
     }
     
     protected void sendResponse(RoutingContext ctx, int httpCode, Object responseObj) {

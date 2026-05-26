@@ -28,6 +28,7 @@ This sample application provides a REST API using [Declarative Vert](https://git
 
 The application should start and have an output similar to this: 
 
+```
     [...]
     [vert.x-eventloop-thread-1] INFO org.javalabs.decl.vertx.container.VertxHttpServer - Started Http Server. Listening to port: 8080
     [main] INFO org.javalabs.decl.vertx.container.VertxContainer - Deployment of verticle app.http.server is successful. Deployment Id: 3abd2b35-4cf7-426f-83a9-7b394710df08
@@ -35,8 +36,11 @@ The application should start and have an output similar to this:
     [vert.x-worker-thread-0] INFO io.opns.app.core.AppProcessor - Started Verticle: AppProcessor
     [main] INFO org.javalabs.decl.vertx.container.VertxContainer - Deployment of verticle app.processor is successful. Deployment Id: 04595511-d20a-43e2-abda-52c931c2d531
 
+```
 
-By default the application run on 8080 port. Modify the port in the `server.xml` if you want to change this value.
+By default the application run on 8080 port. You can change the port by passing the system property `-Dport=8082`.
+
+If the project is created using **advanced option**, then you can modify the `port` in the generated `server.xml` file.
 
 ## Review swagger doc
 
@@ -106,45 +110,64 @@ curl -X DELETE\
      http://localhost:8080{URI}/{id}
 ```
 
-
-
 ## What's included
 
-```
-|---com.lyra.sdk.server
-|   |-- ServerApplication.java
-|   |-- resource 
-|        |-- CreateResource.java
-|        |-- HealthResource.java
-|        |-- VerifyResultResource.java   
-|   |-- util
-|        |-- ServerConfiguration.java
-|---resources
-|   |-- application.properties
-```
-
-**ServerApplication.java**: is the entry point of the Spring Boot application.
-
-**Resource package**: contains all the Rest controllers that handle the Rest operations.
-
-**Util package**: contains a configuration implementation that reads data from environment variables if provided.  
+1. Handler class
+2. Model class
+3. Configuration file
+4. Swagger doc
 
 ## Security concerns
 
-This sample uses a [basic auth](https://developer.mozilla.org/fr/docs/Web/HTTP/Authentication#Sch%C3%A9ma_d'authentification_basique_(Basic)) implementation in order to provide a simple way to secure the Rest API.
+The project includes a keystore called `server.pkcs` that has the private and public key (self-signed certificate). You can replace it with any 3rd party signed certificate in future.
+All the APIs are protected. Therefore you must obtain a jwt token before calling any of the end points. The token has a validity of 5 hours. The token will be signed using the private key 
+present in the key store and will be verified during every call.
 
-See [Configuration](#security-configuration) section if you want to how to configure credentials.  
+```
+curl -X POST --insecure -u 'test:p@$$word' -H "Content-Type:application/json" http://localhost:8080/api/v1/mgmt/login
+```
 
-Please note that this authentication requires an HTTP**S** connection in order to be really effective. Otherwise the credentials will 
-be sent in plain text.
- 
+This will return a `jwt` token. Use this as a `Bearer` token in subsequent invocation os APIs.
+E.g., 
+
+```
+curl -X POST\
+     -d '<payload>'\
+     -H "Content-Type: application/json"\
+     -H "Authorization: Bearer {jwt}"\
+     http://localhost:8080{URI}s
+```
+
+### ORM File
+
+The `persistence.xml` file present under `src/main/resources` directory contains the entity definition and connection string and other credentials for an in-memory `H2` database.
+For a production deployment, the url, user and password should be overriden by that mentioned in `app.json` file. See the Configuration section below.
 
 ## Configuration
 
-There are 3 configuration files used by this service. These files are placed under `src/main/resources` directory.
+### Platform Configuration Files
+
+There are 3 configuration files used by this service. These files are generated under `src/main/resources` directory.
  
 <ul>
 <li><b>vertx-web.xml</b> - This file is the core configuration file that provides configuration and deployment information for Vert.x. It's the standard name used by decl-vertx-container module as a deployment descriptor in Vert.x applications. Apart from standard vert.x configuration, this file also defines the Verticles that will be deployed.</li>
 <li><b>server.xml</b> - If any of your verticles is starting an http server, then you need to create the second file server.xml, which is a configuration file for the embedded http server. It dictates how the server behaves during startup and operation. It also defines various elements like the server, services, connectors, and containers, which handle requests and manage web applications.</li>
 <li><b>routing-config.xml</b> - This file defines how HTTP requests are handled based on their paths and methods. Configuration typically involves setting up routes with corresponding handlers, potentially including path parameters and request body processing</li>
 </ul>
+
+### Application Configuration File
+
+The application configuration file `app.json` is generated and places inside `src/main/resources` directory. It has the test user and database credentials.
+
+### Adding Custom Connection Pool
+
+By default the application uses the JPA-LiTE's proprietary connection pool. However, if you would like to use `Hikari`, modify the `pom.xml` to add the below dependency.
+
+```
+<dependency>
+    <groupId>com.zaxxer</groupId>
+    <artifactId>HikariCP</artifactId>
+    <version>7.0.2</version>
+    <scope>runtime</scope>
+</dependency>
+```

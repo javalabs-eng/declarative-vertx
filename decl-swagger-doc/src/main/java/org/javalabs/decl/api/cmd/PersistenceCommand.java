@@ -53,7 +53,7 @@ public class PersistenceCommand implements Command {
         try {
             // Generate persistence.xml
             PersistenceType persistence = new PersistenceType();
-            persistence.setVersion(BigDecimal.TWO);
+            persistence.setVersion(new BigDecimal(2));
             
             PersistenceUnitType unitType = new PersistenceUnitType();
             unitType.setName(project.name().toLowerCase() + "-" + "pu");

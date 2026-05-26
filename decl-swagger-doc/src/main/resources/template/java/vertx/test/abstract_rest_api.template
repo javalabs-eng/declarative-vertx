@@ -14,9 +14,9 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import org.javalabs.decl.util.MapperUtil;
+import org.javalabs.decl.vertx.config.model.ServerMessage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -59,77 +59,114 @@ public abstract class AbstractRestApiTest {
         return CLIENT;
     }
     
-    protected String login() {
+    protected AuthToken login() {
         String user = (String)APP_CONFIG.get("testing", "user");
         String password =(String)APP_CONFIG.get("testing", "password");
         
         return login(user, password);
     }
     
-    protected String login(String user, String password) {
+    protected AuthToken login(String user, String password) {
         return login(LOGIN_URI, user, password);
     }
     
-    protected String login(String uri, String user, String password) {
-        try {
-            String basicKey = "Basic " + Base64.getEncoder().encodeToString((user + ":" + password).getBytes());
-            Map<String, String> headers = new HashMap<>();
-            headers.put("Authorization", basicKey);
-            
-            Future<String> future = rpc(uri, "POST", null, headers);
+    protected AuthToken login(String uri, String user, String password) {
+        String basicKey = "Basic " + Base64.getEncoder().encodeToString((user + ":" + password).getBytes());
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", basicKey);
 
-            AuthToken token = MapperUtil.decode(future.get().getBytes(), AuthToken.class);
-            return token.getJwt();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+        final AuthToken token = new AuthToken();
+
+        CompletableFuture<HttpResponse<byte[]>> future = rpc(uri, "POST", null, headers);
+        future.whenComplete((result, error) -> {
+            if (error != null) {
+                throw new RuntimeException("Error calling remote API " + uri + ". Message: " + error.getMessage());
+            }
+            else {
+                if (result.statusCode() == HttpURLConnection.HTTP_OK) {
+                    AuthToken at = MapperUtil.decode(result.body(), AuthToken.class);
+                    token.set(at);
+                }
+                else {
+                    ServerMessage msg = MapperUtil.decode(result.body(), ServerMessage.class);
+                    System.err.println(msg);
+                }
+            }
+            
+        }); 
+        return token;
     }
 
-    protected CompletableFuture<String> rpc(String uri
+    protected CompletableFuture<HttpResponse<byte[]>> rpc(String uri
             , String method
             , Object payload
             , Map<String, String> headers) {
         
-        try {
-            if (! headers.containsKey("Content-Type")) {
-                headers.put("Content-Type", "application/json");
-            }
+        return rpc(uri, method, payload, headers, Boolean.FALSE);
+    }
 
-            // Prepare the request builder with the appropriate url
-            HttpRequest.Builder builder = HttpRequest.newBuilder().uri(URI.create(baseUrl + uri));
-
-            // Setup the headers.
-            for (Map.Entry<String, String> me : headers.entrySet()) {
-                builder.header(me.getKey(), me.getValue());
-            }
-
-            // prepare the request body (for a POST request).
-            HttpRequest.BodyPublisher body = null;
-            if (method.equalsIgnoreCase("POST") || method.equalsIgnoreCase("PUT")) {
-                if (payload != null) {
-                    byte[] buff = MapperUtil.encode(payload);
-                    body = HttpRequest.BodyPublishers.ofByteArray(buff);
-                }
-                else {
-                    body = HttpRequest.BodyPublishers.noBody();
-                }
-            }
-
-            // Finally, build the http request
-            HttpRequest request = builder.method(method, body).build();
-
-            // Send request to remote service (sync call)
-            HttpResponse<byte[]> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofByteArray());
-
-            // Wait for the response to process it !
-            if (response.statusCode() != HttpURLConnection.HTTP_CREATED && response.statusCode() != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException(new String(response.body()));
-            }
-            return CompletableFuture.completedFuture(new String(response.body()));
+    protected CompletableFuture<HttpResponse<byte[]>> rpc(String uri
+            , String method
+            , Object payload
+            , Map<String, String> headers
+            , Boolean async) {
+        
+        if (! headers.containsKey("Content-Type")) {
+            headers.put("Content-Type", "application/json");
         }
-        catch (InterruptedException | IOException e) {
-            return CompletableFuture.failedFuture(e);
+
+        // Prepare the request builder with the appropriate url
+        HttpRequest.Builder builder = HttpRequest.newBuilder().uri(URI.create(baseUrl + uri));
+
+        // Setup the headers.
+        for (Map.Entry<String, String> me : headers.entrySet()) {
+            builder.header(me.getKey(), me.getValue());
+        }
+
+        // prepare the request body (for a POST request).
+        HttpRequest.BodyPublisher body = null;
+        if (method.equalsIgnoreCase("POST") || method.equalsIgnoreCase("PUT")) {
+            if (payload != null) {
+                byte[] buff = MapperUtil.encode(payload);
+                body = HttpRequest.BodyPublishers.ofByteArray(buff);
+            }
+            else {
+                body = HttpRequest.BodyPublishers.noBody();
+            }
+        }
+
+        // Finally, build the http request
+        HttpRequest request = builder.method(method, body).build();
+
+        // Send request to remote service (sync call)
+        CompletableFuture<HttpResponse<byte[]>> future = call(request, async);
+        return future;
+    }
+    
+    /**
+     * Perform the remote call.The response is encapsulated in a {@link CompletableFuture} object before returning to the caller.
+     * 
+     * Note that, due to sync nature of the call, post invocation of this method, the {@link Future}
+     * object is already populated.
+     * 
+     * @param request   Http client request.
+     * @param async
+     * @return CompletableFuture
+     */
+    protected CompletableFuture<HttpResponse<byte[]>> call(HttpRequest request, Boolean async) {
+        if (async) {
+            return CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofByteArray());
+        }
+        else {
+            try {
+                HttpResponse<byte[]> response = CLIENT
+                        .send(request, HttpResponse.BodyHandlers.ofByteArray());
+
+                return CompletableFuture.completedFuture(response);
+            }
+            catch (IOException | InterruptedException e) {
+                return CompletableFuture.failedFuture(e);
+            }
         }
     }
     
@@ -143,4 +180,3 @@ public abstract class AbstractRestApiTest {
         }
     }
 }
-

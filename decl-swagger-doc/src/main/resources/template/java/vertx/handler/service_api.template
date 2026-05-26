@@ -1,9 +1,11 @@
 package {HANDLER_PACKAGE};
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import {MODEL_PACKAGE}.{RESOURCE};
 import {MODEL_PACKAGE}.ItemList;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
+import io.vertx.core.json.jackson.DatabindCodec;
 import io.vertx.ext.web.RoutingContext;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,9 +62,9 @@ public class {RESOURCE}Handler {
         // If you use a remote store, this method will safely execute the blocking code.
         vertx.executeBlocking(() -> {
             {RESOURCE} element = Json.decodeValue(ctx.body().buffer(), {RESOURCE}.class);
-            {org.javalabs.decl.api.cust.PostMethodCustomization.entry(${Project})}
+            {org.javalabs.decl.api.cust.PostMethodCustomization.entry(${Project}, ${JavaClass})}
             
-        }, result -> {
+        }).onComplete(result -> {
             if (result.succeeded()) {
                 String buffer = Json.encodePrettily(result.result());
                 ctx.response().setStatusCode(201).end(buffer);
@@ -74,6 +76,23 @@ public class {RESOURCE}Handler {
                 else {
                     ctx.fail(500, result.cause());
                 }
+            }
+        });
+    }
+
+    public void batchCreate(RoutingContext ctx) {
+        // If you use a remote store, this method will safely execute the blocking code.
+        vertx.executeBlocking(() -> {
+            List<{RESOURCE}> elements = DatabindCodec.mapper().readValue(ctx.body().buffer().getBytes(), new TypeReference<List<{RESOURCE}>>() {});
+            {org.javalabs.decl.api.cust.BatchMethodCustomization.entry(${Project}, ${JavaClass})}
+
+        }).onComplete(result -> {
+            if (result.succeeded()) {
+                String buffer = Json.encodePrettily(result.result());
+                ctx.response().setStatusCode(201).end(buffer);
+            }
+            else {
+                ctx.fail(result.cause());
             }
         });
     }
@@ -98,9 +117,9 @@ public class {RESOURCE}Handler {
         // If you use a remote store, this method will safely execute the blocking code.
         vertx.executeBlocking(() -> {
             {RESOURCE} element = Json.decodeValue(ctx.body().buffer(), {RESOURCE}.class);
-            {org.javalabs.decl.api.cust.PutMethodCustomization.entry(${Project})}
+            {org.javalabs.decl.api.cust.PutMethodCustomization.entry(${Project}, ${JavaClass})}
             
-        }, result -> {
+        }).onComplete(result -> {
             if (result.succeeded()) {
                 String buffer = Json.encodePrettily(result.result());
                 ctx.response().setStatusCode(200).end(buffer);
@@ -130,9 +149,9 @@ public class {RESOURCE}Handler {
         
         // If you use a remote store, this method will safely execute the blocking code.
         vertx.executeBlocking(() -> {
-            {org.javalabs.decl.api.cust.GetMethodCustomization.entry(${Project})}
+            {org.javalabs.decl.api.cust.GetMethodCustomization.entry(${Project}, ${JavaClass})}
             
-        }, result -> {
+        }).onComplete(result -> {
             if (result.succeeded()) {
                 String buffer = Json.encodePrettily(result.result());
                 ctx.response().setStatusCode(200).end(buffer);
@@ -163,7 +182,7 @@ public class {RESOURCE}Handler {
             vals = ctx.queryParam("limit");
             Integer limit = vals.isEmpty() ? DEFAULT_LIMIT : Integer.valueOf(vals.get(0));
 
-            {org.javalabs.decl.api.cust.GetAllMethodCustomization.entry(${Project})}
+            {org.javalabs.decl.api.cust.GetAllMethodCustomization.entry(${Project}, ${JavaClass})}
 
             Map<String, String> params = new HashMap<>();
             for (Map.Entry<String, String> me : ctx.queryParams().entries()) {
@@ -171,7 +190,7 @@ public class {RESOURCE}Handler {
             }
             return build(params, store.size(), items, offset, limit);
             
-        }, result -> {
+        }).onComplete(result -> {
             if (result.succeeded()) {
                 String buffer = Json.encodePrettily(result.result());
                 ctx.response().setStatusCode(200).end(buffer);
@@ -197,9 +216,9 @@ public class {RESOURCE}Handler {
         
         // If you use a remote store, this method will safely execute the blocking code.
         vertx.executeBlocking(() -> {
-            {org.javalabs.decl.api.cust.DeleteMethodCustomization.entry(${Project})}
+            {org.javalabs.decl.api.cust.DeleteMethodCustomization.entry(${Project}, ${JavaClass})}
             
-        }, result -> {
+        }).onComplete(result -> {
             if (result.succeeded()) {
                 ctx.response().setStatusCode(204).end();
             }

@@ -223,58 +223,154 @@ public class PutMethodCustomization extends AbstractCustomization {
     }
 
     @Override
-    public Result entry(Project project) {
+    public Result entry(Project project, JavaClass model) {
         final StringBuilder buff = new StringBuilder(256);
         
         try {
-            // Employee element = Json.decodeValue(ctx.body().buffer(), Employee.class);
-            // buff.append("\n\t\t\t")
-            //         .append(project.resource()).append(" ").append("element")
-            //         .append(" = ")
-            //         .append("Json.decodeValue")
-            //         .append("(")
-            //             .append("ctx.body().buffer()").append(", ")
-            //             .append(project.resource()).append(".class")
-            //         .append(")")
-            //         .append(";");
+            JavaVariable idVar = idField(model);
             
-            // Employee current = store.get(id);
-            buff.append("\n\n\t\t\t").append("// Fetch the existing employee from the in-memory store.");
-            buff.append("\n\t\t\t")
-                    .append(project.inputResource().resource()).append(" ").append("current").append(" = ").append("store.get(id)")
-                    .append(";");
-            
-            // if (current == null) {
-            //     throw new NoSuchElementException("No element found for id: " + id);
-            // }
-            buff.append("\n\t\t\t")
-                    .append("if ").append("(").append("current").append(" == ").append("null").append(")").append("{")
-                    .append("\n\t\t\t\t").append("throw new NoSuchElementException(\"No element found for id: \" + id)").append(";")
-                    .append("\n\t\t\t")
-                    .append("}");
-            
-            // Update all attributes.
-            // current.setName(element.getName());
-            // current.setLocation(element.getLocation());
-            // current.setSalary(element.getSalary());
-            buff.append("\n\t\t\t").append("// Update all attributes.");
-            for (JavaVariable var : updatableFields(project.model())) {
-                buff.append("\n\t\t\t").append("current").append(".").append(setter(var.name()))
-                        .append("(").append("element").append(".").append(getter(var.name())).append("()").append(")").append(";");
+            if (idVar != null) {
+                // Employee current = store.get(id);
+                buff.append("// Fetch the existing employee from the in-memory store.");
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(project.inputResource().resource())
+                        .append(CodeGenSupport.SPACE)
+                        .append("current")
+                        .append(CodeGenSupport.SPACE)
+                        .append(CodeGenSupport.EQUALS)
+                        .append(CodeGenSupport.SPACE)
+                        .append("store")
+                        .append(CodeGenSupport.STOP)
+                        .append("get")
+                        .append("(")
+                        .append("id")
+                        .append(")")
+                        .append(CodeGenSupport.SEMICOLON);
+                
+                // if (current == null) {
+                //     throw new NoSuchElementException("No element found for id: " + id);
+                // }
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("if")
+                        .append(CodeGenSupport.SPACE)
+                        .append("(")
+                        .append("current")
+                        .append(CodeGenSupport.SPACE)
+                        .append("==")
+                        .append(CodeGenSupport.SPACE)
+                        .append("null")
+                        .append(")")
+                        .append(CodeGenSupport.SPACE)
+                        .append("{")
+                        .append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("throw new NoSuchElementException(\"No element found for id: \" + id)")
+                        .append(CodeGenSupport.SEMICOLON)
+                        .append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("}");
+                
+                // Update all attributes.
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("// Update all attributes.");
+                
+                // current.setName(element.getName());
+                // current.setLocation(element.getLocation());
+                // current.setSalary(element.getSalary());
+                for (JavaVariable var : updatableFields(model)) {
+                    buff.append(CodeGenSupport.NEW_LINE)
+                            .append(CodeGenSupport.TAB)
+                            .append(CodeGenSupport.TAB)
+                            .append(CodeGenSupport.TAB)
+                            .append("current")
+                            .append(CodeGenSupport.STOP)
+                            .append(setter(var.name()))
+                            .append("(")
+                            .append("element")
+                            .append(CodeGenSupport.STOP)
+                            .append(getter(var.name()))
+                            .append("()")
+                            .append(")")
+                            .append(CodeGenSupport.SEMICOLON);
+                }
+                // current.setUpdatedOn(new Date());
+                buff.append(CodeGenSupport.NEW_LINE)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append(CodeGenSupport.TAB)
+                        .append("current")
+                        .append(CodeGenSupport.STOP)
+                        .append(updatedOnSetter(model))
+                        .append("(")
+                        .append("new Date()")
+                        .append(")")
+                        .append(CodeGenSupport.SEMICOLON);
             }
-            // current.setUpdatedOn(new Date());
-            buff.append("\n\t\t\t").append("current").append(".").append(updatedOnSetter(project.model()))
-                        .append("(").append("new Date()").append(")").append(";");
-            
+                
             // Map<String, String> msg = new HashMap<>();
             // msg.put("code", "employee_modified");
             // msg.put("message", "{RESOURCE} modified successfully");
             // return msg;
-            buff.append("\n\n\t\t\t").append("Map<String, String> msg = new HashMap<>()").append(";");
-            buff.append("\n\t\t\t").append("msg.put(\"code\", \"").append(project.inputResource().resource().toLowerCase()).append("_modified\")").append(";");
-            buff.append("\n\t\t\t").append("msg.put(\"message\", \"").append(project.inputResource().resource()).append(" modified successfully\")").append(";");
-            buff.append("\n\t\t\t").append("return msg").append(";");
+            buff.append(CodeGenSupport.NEW_LINE)
+                    .append(CodeGenSupport.NEW_LINE)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append("Map<String, Object> msg = new HashMap<>()")
+                    .append(CodeGenSupport.SEMICOLON);
             
+            buff.append(CodeGenSupport.NEW_LINE)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append("msg.put")
+                    .append("(")
+                    .append("\"code\"")
+                    .append(CodeGenSupport.COMMA)
+                    .append(CodeGenSupport.SPACE)
+                    .append("200")
+                    .append(")")
+                    .append(CodeGenSupport.SEMICOLON);
+            
+            buff.append(CodeGenSupport.NEW_LINE)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append("msg.put")
+                    .append("(")
+                    .append("\"message\"")
+                    .append(CodeGenSupport.COMMA)
+                    .append(CodeGenSupport.SPACE)
+                    .append("\"")
+                    .append(project.inputResource().resource())
+                    .append(CodeGenSupport.SPACE)
+                    .append("modified successfully\"")
+                    .append(")")
+                    .append(CodeGenSupport.SEMICOLON);
+            
+            buff.append(CodeGenSupport.NEW_LINE)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append(CodeGenSupport.TAB)
+                    .append("return")
+                    .append(CodeGenSupport.SPACE)
+                    .append("msg")
+                    .append(CodeGenSupport.SEMICOLON);
+                        
             return new Result(buff.toString());
         }
         finally {

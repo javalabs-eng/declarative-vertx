@@ -11,6 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import org.javalabs.decl.api.cust.BatchMethodCustomization;
+import org.javalabs.decl.gen.JavaClass;
 
 /**
  * Vert.x api helper class.
@@ -23,6 +25,7 @@ public class ApiHelper {
     
     public ApiHelper() {
         customizers.add(new PostMethodCustomization());
+        customizers.add(new BatchMethodCustomization());
         customizers.add(new PutMethodCustomization());
         customizers.add(new GetAllMethodCustomization());
         customizers.add(new GetMethodCustomization());
@@ -36,7 +39,7 @@ public class ApiHelper {
      * @param content   Raw content of the handler file.
      * @return String   Modified content.
      */
-    public String analyze(Project project, String content) {
+    public String analyze(Project project, String content, JavaClass model) {
         try {
             String tmp = content;
             tmp = tmp.replace("{HANDLER_PACKAGE}", project.handlerPkg());
@@ -48,9 +51,9 @@ public class ApiHelper {
                 Method[] methods = methods(cust);
 
                 for (Method method : methods) {
-                    String exp = "{" + cust.getClass().getName() + "." + method.getName() + "(${Project})" + "}";
+                    String exp = "{" + cust.getClass().getName() + "." + method.getName() + "(${Project}, ${JavaClass})" + "}";
                     if (content.indexOf(exp) > 0) {
-                        Result res = (Result)method.invoke(cust, new Object[] {project});
+                        Result res = (Result)method.invoke(cust, new Object[] {project, model});
                         tmp = tmp.replace(exp, res.toString());
                     }
                 }

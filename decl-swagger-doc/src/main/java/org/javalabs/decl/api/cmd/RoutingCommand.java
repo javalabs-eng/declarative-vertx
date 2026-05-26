@@ -84,28 +84,34 @@ public class RoutingCommand implements Command {
             rm.setFailure(Boolean.TRUE);
             resources.add(rm);
             
-            // Login handler
-            rm = new ResourceMapping();
-            rm.setName("AuthToken");
-            rm.setPath("/mgmt/login");
-            rm.setResource("io.opns.app.handler.AuthenticationHandler");
-            rm.setSchema(project.authPkg() + "." + "AuthToken");
+            // Following packages are needed only if it is an end-to-end project.
+            Mapping m = null;
             
-            Mapping m = new Mapping();
-            m.setUri("");
-            m.setMethod("POST");
-            m.setApi("authenticate");
-            rm.getMapping().add(m);
-            
-            resources.add(rm);
+            if (ctx.currentChain().name().equals("java_project_e2e") || ctx.currentChain().name().equals("java_project_e2e_db")) {
+                // Login handler
+                rm = new ResourceMapping();
+                rm.setName("AuthToken");
+                rm.setPath("/mgmt/login");
+                rm.setResource(project.handlerPkg() + "." + "AuthenticationHandler");
+                rm.setSchema(project.authPkg() + "." + "AuthToken");
+
+                m = new Mapping();
+                m.setUri("");
+                m.setMethod("POST");
+                m.setApi("authenticate");
+                rm.getMapping().add(m);
+
+                resources.add(rm);
+            }
             
             // Now, add the remaining handlers.
             for (Map.Entry<String, JavaClass> me : classes.entrySet()) {
                 String name = me.getKey();
+                String tmp = CharUtil.lowerFirst(name);
                 
                 rm = new ResourceMapping();
                 rm.setName(name);
-                rm.setPath("/" + CharUtil.lowerFirst(name) + "s");
+                rm.setPath("/" + CharUtil.plural(tmp));
                 rm.setResource(project.handlerPkg() + "." + name + "Handler");
                 rm.setSchema(project.modelPkg() + "." + name);
                 

@@ -11,12 +11,12 @@ import io.vertx.ext.web.handler.BodyHandler;
 /**
  * Main class that will initialize the vertx container and start the http server.
  */
-public class ExampleMain {
+public class {MAIN_CLASS} {
     
     private HttpServer server = null;
     
     public static void main(String[] args) throws Exception {
-        ExampleMain ex = new ExampleMain();
+        {MAIN_CLASS} ex = new {MAIN_CLASS}();
         ex.run();
     }
     
@@ -41,7 +41,7 @@ public class ExampleMain {
         // In order to handle incoming HTTP requests a request handler must be set
         // on the HTTP server. This is normally done before starting the server.
         server.requestHandler(router);
-        server.listen(8080);
+        server.listen(Integer.parseInt(System.getProperty("port", "8080")));
         
         System.out.println("Started Http Server. Listening to port: " + server.actualPort());
     }

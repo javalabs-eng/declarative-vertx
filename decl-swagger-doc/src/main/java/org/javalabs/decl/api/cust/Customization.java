@@ -36,9 +36,10 @@ public interface Customization {
      * Called while starting a method.
      * 
      * @param project 
+     * @param model 
      * @return  Result
      */
-    Result entry(Project project);
+    Result entry(Project project, JavaClass model);
     
     /**
      * Called while exiting a method.
