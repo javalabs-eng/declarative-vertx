@@ -1,6 +1,6 @@
-# Contributing to jpa-lite
+# Contributing to declarative-vertx
 
-Thank you for your interest in contributing to **jpa-lite**! We welcome contributions from the community and appreciate your time and effort. This guide will help you get started.
+Thank you for your interest in contributing to **declarative-vertx**! We welcome contributions from the community and appreciate your time and effort. This guide will help you get started.
 
 ---
 
@@ -30,16 +30,13 @@ This project adheres to the [Open Source Code of Conduct](https://docs.github.co
 
 ## Project Overview
 
-**jpa-lite** is a lightweight Java Persistence API (JPA) implementation designed for high-throughput and batch processing scenarios. It provides a developer-friendly abstraction over JDBC that significantly reduces boilerplate code while maintaining a minimal memory footprint — making it suitable for enterprise-grade batch workloads where traditional JPA implementations like Hibernate or EclipseLink introduce excessive memory overhead and garbage collection pressure.
+**declarative-vertx** is a declarative approach in creating a REST API using Vert.x with minimal coding effort.
 
 Key capabilities:
-- Lightweight CRUD operations via annotated JPA entities (`@Entity`, `@Table`, `@Column`, etc.).
-- Dependency injection support via `@Dao` and `@PersistenceContext` annotations.
-- Named Native Query support for complex SQL execution.
-- Fluent Criteria Query API for building dynamic queries without a `CriteriaBuilder`.
-- Batch insert support with automatic transaction management.
-- DDL schema generation via the `schema-gen` command-line tool.
-- Compatible with any Java tech stack: Jakarta EE, Spring Boot, Vert.x, and more.
+- Primarily define the data structures (resources) that your API exposes, outlining their attributes and relationships, rather than intricate logic for manipulating them.
+- Utilize standard HTTP methods like GET, POST, PUT, DELETE to clearly indicate the intended actions on those resources, allowing the client to understand the operations without needing additional instructions.
+- Each request should contain all the necessary information to be processed independently, without relying on previous interactions with the server.
+- Use declarative frameworks or tools to specify the desired API behavior through configuration files, allowing for easier management and updates.
 
 ---
 
@@ -48,12 +45,12 @@ Key capabilities:
 1. **Fork** the repository on GitHub Enterprise.
 2. **Clone** your fork locally:
    ```bash
-   git clone https://github.com/<your-username>/jpa-lite.git
-   cd jpa-lite
+   git clone https://github.com/<your-username>/declarative-vertx.git
+   cd declarative-vertx
    ```
 3. **Add the upstream remote**:
    ```bash
-   git remote add upstream https://github.com/sudiptasish/jpa-lite.git
+   git remote add upstream https://github.com/javalabs-eng/declarative-vertx.git
    ```
 
 ---
@@ -91,7 +88,7 @@ To run tests only:
 
 ### Reporting Bugs
 
-If you find a bug, please [open an issue](https://github.com/sudiptasish/jpa-lite/issues) and include:
+If you find a bug, please [open an issue](https://github.com/javalabs-eng/declarative-vertx/issues) and include:
 
 - A clear, descriptive title.
 - Steps to reproduce the problem.
@@ -101,7 +98,7 @@ If you find a bug, please [open an issue](https://github.com/sudiptasish/jpa-lit
 
 ### Suggesting Enhancements
 
-We welcome ideas for new features or improvements. Please [open an issue](https://github.com/sudiptasish/jpa-lite/issues) with:
+We welcome ideas for new features or improvements. Please [open an issue](https://github.com/javalabs-eng/declarative-vertx/issues) with:
 
 - A clear description of the enhancement.
 - The motivation and use case behind the request.
@@ -138,8 +135,6 @@ We welcome ideas for new features or improvements. Please [open an issue](https:
 - Keep methods focused and concise — prefer single-responsibility design.
 - Add Javadoc comments to all public classes and methods.
 - Avoid introducing unnecessary external dependencies without prior discussion.
-- When adding new Criteria operations, ensure bind parameter handling is consistent with the existing `Criteria` API.
-- Do not use Hibernate or EclipseLink internals — jpa-lite is an independent implementation.
 
 ---
 
@@ -166,8 +161,6 @@ All contributions must include appropriate tests. The project uses **JUnit 5 (Ju
 
 - Update `README.md` if your change affects public-facing behavior, configuration, or API usage.
 - Add or update Javadoc for any modified or new public APIs.
-- If adding new query types or Criteria operations, include usage examples in the README under the appropriate section.
-- If schema generation behaviour changes, update the [Schema Generation](README.md#schema-generation) section accordingly.
 
 ---
 
