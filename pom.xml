@@ -10,6 +10,17 @@
     <version>2.0.1</version>
     <packaging>pom</packaging>
     
+    <name>declarative-vertx</name>
+    <description>A declarative approach towards building Vert.x application</description>
+    
+    <!-- Declaring the license(s) used for distributing OTL components -->
+    <licenses>
+        <license>
+          <name>The Apache License, Version 2.0</name>
+          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    
     <modules>
         <module>decl-class-gen</module>
         <module>decl-container</module>
