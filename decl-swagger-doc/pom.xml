@@ -13,6 +13,9 @@
     <groupId>org.javalabs.decl</groupId>
     <artifactId>decl-swagger-doc</artifactId>
     <version>2.0.1</version>
+    
+    <name>decl-swagger-doc</name>
+    <description>Provides command line interface to auto generate java project in various tech stack.</description>
 
     <dependencies>
         <dependency>

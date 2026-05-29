@@ -14,6 +14,9 @@
     <artifactId>decl-vertx-container</artifactId>
     <version>2.0.1</version>
 
+    <name>decl-vertx-container</name>
+    <description>A Maven module optimized to package, containerize, and deploy asynchronous Vert.x verticles as cloud-native microservices.</description>
+    
     <dependencies>
         <dependency>
             <groupId>org.javalabs.decl</groupId>

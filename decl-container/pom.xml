@@ -14,6 +14,9 @@
     <artifactId>decl-container</artifactId>
     <version>2.0.1</version>
     
+    <name>decl-container</name>
+    <description>Designed to package, containerize for application deployment</description>
+    
     <dependencies>
         <dependency>
             <groupId>org.javalabs.decl</groupId>

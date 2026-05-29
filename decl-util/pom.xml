@@ -14,4 +14,7 @@
     <artifactId>decl-util</artifactId>
     <version>2.0.1</version>
     
+    <name>decl-util</name>
+    <description>A shared Maven library packed with reusable helper functions, string handlers, and date tools used across multiple applications.</description>
+    
 </project>
