@@ -1,4 +1,4 @@
-name: JpaLite_Release
+name: DeclarativeVertx_Release
 
 on:
   push:
