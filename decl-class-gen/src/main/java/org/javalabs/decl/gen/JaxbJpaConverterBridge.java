@@ -16,7 +16,7 @@ import org.javalabs.orm.jaxb.EntityType;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JaxbJpaConverterBridge {
     

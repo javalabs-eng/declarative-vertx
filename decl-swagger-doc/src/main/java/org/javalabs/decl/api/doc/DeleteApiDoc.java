@@ -54,7 +54,7 @@ import java.util.Map;
  * }
  * </pre>
  * 
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class DeleteApiDoc extends AbstractDoc {
     

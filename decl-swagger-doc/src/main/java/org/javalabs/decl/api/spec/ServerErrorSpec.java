@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Schema definition for http 500 aka internal server error.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ServerErrorSpec {
     

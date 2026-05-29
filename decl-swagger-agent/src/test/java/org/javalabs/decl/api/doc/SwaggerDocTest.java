@@ -4,17 +4,17 @@ import org.junit.jupiter.api.Test;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class SwaggerDocTest {
     
     // @Test
     public void testGenerate() throws Exception {
-        // String file = "/Users/schan280/Projects/example-rest/src/main/resources/routing-config.xml";
+        // String file = "/Users/Sudiptasish Chanda/Projects/example-rest/src/main/resources/routing-config.xml";
         DocOption docOpt = new DocOption();
         docOpt.setConfigFile("routing-config.xml");
         // docOpt.setMethods(Arrays.asList("get", "post", "put", "delete"));
-        docOpt.setOutFile("/Users/schan280/Projects/openapi.yaml");
+        docOpt.setOutFile("/Users/Sudiptasish Chanda/Projects/openapi.yaml");
         
         SwaggerDoc doc = new SwaggerDoc();
         doc.generate(docOpt);

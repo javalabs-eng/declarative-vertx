@@ -10,7 +10,7 @@ import org.javalabs.decl.util.PlatformProvider;
  * provide an implementation of {@link EmbeddedHttpServer} and associated classes. Applications do 
  * not normally use this class. See {@link #get()} for how providers are found and loaded.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public abstract class HttpServerProvider extends PlatformProvider {
     

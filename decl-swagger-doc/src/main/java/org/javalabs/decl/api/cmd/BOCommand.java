@@ -15,15 +15,30 @@ import java.util.concurrent.Future;
 import org.javalabs.decl.api.cust.BatchMethodCustomization;
 import org.javalabs.decl.gen.JavaClass;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates Business Object (BO) classes.
+ * 
+ * <p>This class uses a template-based approach to build business logic layers 
+ * for a Java project. It reads a data model definition or database schema, 
+ * merges that information with preset text templates, and writes the complete 
+ * {@code .java} files to disk. This speeds up development and keeps project 
+ * architecture consistent.</p>
+ * 
+ * <p>Typical workflow usage:</p>
+ * <ol>
+ *   <li>The command reads structural data from a configuration source.</li>
+ *   <li>It loads the required Business Object templates into memory.</li>
+ *   <li>It generates clean code structures including fields, getters, setters, 
+ *       and validation logic.</li>
+ * </ol>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class BOCommand implements Command {
     
@@ -64,7 +79,7 @@ public class BOCommand implements Command {
                     + "bo" + File.separator
                     + AUTH_BO_TEMPLATE;
 
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             String content = helper.analyze(project, project.boPkg(), new String(buff), null);
             
             File file = new File(destDir + File.separator + "Auth" + "BO" + ".java");
@@ -83,7 +98,7 @@ public class BOCommand implements Command {
                     + "bo" + File.separator
                     + BO_TEMPLATE;
 
-            buff = FileHandlerUtil.read(template);
+            buff = StreamUtil.read(template);
             
             Map<String, JavaClass> classes = (Map)ctx.get("resource.names");
             for (Map.Entry<String, JavaClass> me: classes.entrySet()) {

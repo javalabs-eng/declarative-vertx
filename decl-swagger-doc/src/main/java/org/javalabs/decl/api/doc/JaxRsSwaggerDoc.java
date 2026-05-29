@@ -21,7 +21,7 @@ import org.javalabs.decl.vertx.jaxb.RoutingConfig;
 /**
  * Swagger doc generator for spring boot application.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JaxRsSwaggerDoc extends SwaggerDoc {
     

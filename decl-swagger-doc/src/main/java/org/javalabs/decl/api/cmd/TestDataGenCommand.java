@@ -17,7 +17,7 @@ import org.javalabs.decl.workflow.Context;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class TestDataGenCommand implements Command {
     

@@ -3,7 +3,7 @@ package org.javalabs.decl.api.cust;
 /**
  * Output of a customization layer.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class Result {
     

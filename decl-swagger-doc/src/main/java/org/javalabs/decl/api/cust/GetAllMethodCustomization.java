@@ -6,7 +6,7 @@ import org.javalabs.decl.gen.JavaClass;
 /**
  * Customization layer for a get api call.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class GetAllMethodCustomization extends AbstractCustomization {
     

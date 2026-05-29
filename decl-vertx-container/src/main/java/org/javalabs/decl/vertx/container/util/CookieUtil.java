@@ -4,7 +4,7 @@ import io.vertx.core.http.Cookie;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class CookieUtil {
     

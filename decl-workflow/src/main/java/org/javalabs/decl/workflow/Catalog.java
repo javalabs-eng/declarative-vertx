@@ -3,7 +3,7 @@ package org.javalabs.decl.workflow;
 import java.util.List;
 
 /**
- * A Catalog acts as a registry to group multiple {@link SyncCommand}s together.
+ * A Catalog acts as a registry to group multiple {@link Command}s together.
  * 
  * <p>
  * You can think of catalog as a registry to store various commands. The 

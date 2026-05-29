@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Swagger api doc generation command.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class SwaggerExecutor implements ExecutorBase {
     

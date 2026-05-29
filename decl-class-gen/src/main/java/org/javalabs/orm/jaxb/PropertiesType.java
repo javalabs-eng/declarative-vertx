@@ -65,9 +65,10 @@ public class PropertiesType {
      *
      * <p>
      * Objects of the following type(s) are allowed in the list
-             * {@link Persistence.PersistenceUnit.Properties.Property }
+             * {@link PropertyType }
      *
      *
+     * @return List List of PropertyTypes.
      */
     public List<PropertyType> getProperty() {
         if (property == null) {

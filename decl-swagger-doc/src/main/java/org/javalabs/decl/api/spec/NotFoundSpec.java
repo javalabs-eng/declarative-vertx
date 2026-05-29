@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Schema definition for http 404 aka not found.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class NotFoundSpec {
     

@@ -17,8 +17,20 @@ import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 
 /**
- *
- * @author schan280
+ * A command class that automatically generates Swagger API documentation.
+ * 
+ * <p>This command scans the system APIs and endpoints to build a complete 
+ * Swagger or OpenAPI description file. It captures paths, query parameters, 
+ * request bodies, and expected responses. The output file can be saved to 
+ * disk as a JSON or YAML document, making it easy to feed into Swagger UI tools.</p>
+ * 
+ * <p>This class is typically run as a build task, a command-line utility, or a 
+ * lifecycle hook during application startup to keep API documentation up to date.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see <a href="https://swagger.io">OpenAPI Specification (Swagger)</a>
+ * @see <a href="https://springdoc.org">Springdoc-OpenAPI Documentation</a>
  */
 public class ApiDocCommand implements Command {
     

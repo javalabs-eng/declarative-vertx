@@ -6,16 +6,31 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- * Command to generate the redoc html.
- *
- * @author schan280
+ * A command utility that generates a ReDoc HTML interface to render Swagger API documentation.
+ * 
+ * <p>This class creates or updates an {@code index.html} file inside the web assets directory. 
+ * It embeds the Redoc JavaScript library via CDN or local reference and injects the 
+ * configuration needed to load a target Swagger or OpenAPI specification file. This provides 
+ * a clean, responsive three-column theme for viewing API documentation.</p>
+ * 
+ * <p>The generated HTML page typically handles operations including:</p>
+ * <ul>
+ *   <li>Loading the Redoc standalone deployment bundle script.</li>
+ *   <li>Configuring visual options such as hiding the search bar or setting standard color themes.</li>
+ *   <li>Binding the Redoc renderer component to the path of your project's {@code openapi.yml} file.</li>
+ * </ul>
+ * 
+ * <p>Using this command creates a modern, user-friendly alternative to standard Swagger UI 
+ * views automatically during the application build phase.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class ReDocCommand implements Command {
     
@@ -44,7 +59,7 @@ public class ReDocCommand implements Command {
                     + project.platform().name().toLowerCase() + File.separator
                     + REDOC_TEMPLATE;
                     
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             
             String destDir = projectRoot.getAbsolutePath()
                     + File.separator

@@ -13,7 +13,7 @@ import org.javalabs.decl.gen.JavaImport;
 import org.javalabs.decl.gen.JavaPackage;
 import org.javalabs.decl.gen.JavaVariable;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.visitor.JavaClassVisitor;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
@@ -21,8 +21,9 @@ import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
+ * A utility command to generate the item list class needed for rest based interaction.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ItemListCommand implements Command {
     
@@ -105,7 +106,7 @@ public class ItemListCommand implements Command {
                     + project.platform().name().toLowerCase() + File.separator
                     + ITEM_LIST_TEMPLATE;
                     
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             String content = new String(buff);
             content = content.replace("{MODEL_PACKAGE}", project.modelPkg());
             

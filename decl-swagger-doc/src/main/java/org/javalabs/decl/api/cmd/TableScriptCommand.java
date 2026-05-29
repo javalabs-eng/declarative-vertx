@@ -16,14 +16,34 @@ import org.javalabs.decl.compile.InMemoryCompiler;
 import org.javalabs.decl.compile.MemoryClassLoader;
 import org.javalabs.decl.gen.JavaClass;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates SQL table creation scripts from JPA entities.
+ * 
+ * <p>This class reverse-engineers Java Persistence API (JPA) or Jakarta Persistence model 
+ * definitions into physical database structural code. It analyzes entity class decorations 
+ * and maps them directly to standard SQL data definitions, allowing you to instantly 
+ * create schema scripts without writing SQL code by hand.</p>
+ * 
+ * <p>The generated script handles common schema conversions including:</p>
+ * <ul>
+ *   <li>Translating {@link jakarta.persistence.Table} and {@link jakarta.persistence.Column} declarations into table and column names.</li>
+ *   <li>Mapping basic Java data types (like {@code String}, {@code int}, or {@code LocalDateTime}) to database-specific types.</li>
+ *   <li>Configuring constraint definitions such as primary keys, unique fields, and nullability flags.</li>
+ * </ul>
+ * 
+ * <p>Using this command helps development teams generate clear SQL scripts for database 
+ * migration, initial schema building, or deployment tasks straight from their Java models.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see jakarta.persistence.Entity
+ * @see <a href="https://jakarta.ee">Jakarta Persistence Specification</a>
+ * @see <a href="https://oracle.com">Java Reflection Field API</a>
  */
 public class TableScriptCommand implements Command {
     
@@ -75,7 +95,7 @@ public class TableScriptCommand implements Command {
                         + File.separator
                         + jClass.name() + ".java";
                 
-                byte[] buff = FileHandlerUtil.read(modelFile);
+                byte[] buff = StreamUtil.read(modelFile);
                 
                 fileNames[idx] = jClass.name() + ".java";
                 contents[idx] = new String(buff);

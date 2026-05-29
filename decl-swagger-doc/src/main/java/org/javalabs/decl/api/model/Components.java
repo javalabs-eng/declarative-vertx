@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({"schemas", "responses", "parameters", "examples", "requestBodies", "headers", "securitySchemes"})
 public class Components {

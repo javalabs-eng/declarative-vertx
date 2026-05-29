@@ -8,7 +8,7 @@ import org.javalabs.decl.api.doc.JaxRsSwaggerDoc;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JaxRsSwaggerAgent extends SwaggerAgent {
 

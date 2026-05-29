@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Schema definition for http 409 aka conflict.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ConflictSpec {
     

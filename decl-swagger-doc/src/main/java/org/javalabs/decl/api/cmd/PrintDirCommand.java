@@ -11,8 +11,23 @@ import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 
 /**
+ * A command utility that displays a visual folder tree structure for a given directory path.
+ * 
+ * <p>This class travels recursively through a target folder on the hard drive. 
+ * It lists every folder and file it finds. It then prints out a tree diagram 
+ * using text lines, making it easy to see how the files are organized.</p>
+ * 
+ * <p>Typical display layout example:</p>
+ * <pre>
+ * my-project/
+ * ├── src/
+ * │   └── Main.java
+ * ├── resources/
+ * │   └── config.properties
+ * └── README.md
+ * </pre>
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class PrintDirCommand implements Command {
     

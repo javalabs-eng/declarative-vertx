@@ -16,7 +16,7 @@ import org.javalabs.decl.vertx.jaxb.WebServerConfig;
 /**
  * A server that supports configuration through external xml file.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public abstract class ServerConfigSupport {
     

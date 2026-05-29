@@ -24,11 +24,11 @@ import org.javalabs.decl.visitor.Element;
  * </ul>
  * 
  * <p>
- * Client can call the {@link #gen() } method which will generate the complete java file from the information
- * provided. Client has to ensure the mandatory attributes are populated before calling the {@link #gen} method
+ * Client can call the appropriate visitor method which will generate the complete java file from the information
+ * provided. Client has to ensure the mandatory attributes are populated before calling the appropriate visitor method
  * , which will instantly generate valid java code based on specific tasks.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaClass implements CodeGenSupport, Element {
     

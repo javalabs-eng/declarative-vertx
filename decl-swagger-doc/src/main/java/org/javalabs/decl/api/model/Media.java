@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({"schema", "example", "examples"})
 public class Media {

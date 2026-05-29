@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({ "name", "description", "externalDocs" })
 public class Tag {

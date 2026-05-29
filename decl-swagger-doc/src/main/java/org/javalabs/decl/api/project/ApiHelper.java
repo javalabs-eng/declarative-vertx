@@ -17,7 +17,7 @@ import org.javalabs.decl.gen.JavaClass;
 /**
  * Vert.x api helper class.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ApiHelper {
     

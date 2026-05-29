@@ -25,7 +25,7 @@ import org.javalabs.decl.writer.ClassWriter;
 /**
  * Create the jpa compliant persistence configuration file.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class PersistenceCommand implements Command {
     

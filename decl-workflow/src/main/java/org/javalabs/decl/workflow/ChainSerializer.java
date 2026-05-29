@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * Serializer class for {@link Chain}.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ChainSerializer extends StdSerializer<Chain> {
     

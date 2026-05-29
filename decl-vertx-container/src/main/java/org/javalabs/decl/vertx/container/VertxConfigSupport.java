@@ -17,7 +17,7 @@ import org.javalabs.decl.vertx.jaxb.VertxWeb;
 /**
  * Abstract class for setting and managing the deployment configuration for vert.x.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public abstract class VertxConfigSupport {
     

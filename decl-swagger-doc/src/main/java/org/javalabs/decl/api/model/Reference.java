@@ -2,7 +2,7 @@ package org.javalabs.decl.api.model;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class Reference {
     

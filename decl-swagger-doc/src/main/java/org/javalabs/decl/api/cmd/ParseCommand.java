@@ -12,7 +12,7 @@ import org.javalabs.decl.workflow.Context;
 /**
  * A command to parse the option and populate the resource name and it;s data types.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ParseCommand implements Command {
     

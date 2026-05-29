@@ -9,7 +9,7 @@ package org.javalabs.decl.vertx.rest;
  * as HTTP verbs. Each request method has its own semantics, but some characteristics are shared across multiple
  * methods, specifically request methods can be safe, idempotent, or cacheable.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public enum HttpMethod {
     

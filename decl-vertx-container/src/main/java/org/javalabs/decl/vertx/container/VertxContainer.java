@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  * Typically all the {@link Verticle}s are deployed with the standard option. If
  * your verticle is supposed to perform some expensive in memory computing, or some
  * long running task, then it is best to mark the specific verticle as Worker verticle.
- * You can pass true to the method {@link DeploymentOptions#setWorker(boolean) } to
+ * You can pass true to the method {@link DeploymentOptions#setThreadingModel(io.vertx.core.ThreadingModel)  } to
  * mark a verticle as Worker.
  * The communication between a normal verticle and a worker verticle happens via
  * event bus, which is aan in-memory queue. So if your verticle is trying to communicate

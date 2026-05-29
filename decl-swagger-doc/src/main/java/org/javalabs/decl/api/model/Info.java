@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({ "version", "title", "description", "termsOfService", "contact", "license" })
 public class Info {

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * message describing the error, and may also include other details like the error type, stack 
  * trace, or cause.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServerMessage implements Serializable {

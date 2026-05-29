@@ -7,15 +7,24 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates authentication-related classes.
+ * 
+ * <p>This command automates the creation of core authentication components, 
+ * such as security configurations, user services, and token handlers. It also 
+ * updates and builds the necessary Swagger or OpenAPI models so that login, 
+ * logout, and token registration endpoints show up correctly in your API docs.</p>
+ * 
+ * <p>This utility is typically run as a code generation tool during development 
+ * or as part of a setup script to bootstrap security structures inside the project.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class AuthCommand implements Command {
     
@@ -67,7 +76,7 @@ public class AuthCommand implements Command {
     }
     
     private void write(Project project, String destDir, String template, String className) throws IOException {
-        byte[] buff = FileHandlerUtil.read(template);
+        byte[] buff = StreamUtil.read(template);
             
         // Now, look for the following customizer sequentially and start replacing the code
         String content = new String(buff);

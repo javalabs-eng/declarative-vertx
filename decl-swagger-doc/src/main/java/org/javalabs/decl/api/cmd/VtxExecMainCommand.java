@@ -7,15 +7,31 @@ import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.CharUtil;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates the vert.x compliant main application entry point class.
+ * 
+ * <p>This class uses a template-based approach to construct an executable main class 
+ * for a Java application. It merges runtime parameters, configurations, and baseline 
+ * imports into a template, then writes a structured {@code .java} source file containing 
+ * the standard executable main method directly to disk.</p>
+ * 
+ * <p>The generated main class sets up core application structures including:</p>
+ * <ul>
+ *   <li>The required {@code public static void main(String[] args)} launcher signature.</li>
+ *   <li>System initialization calls, basic environment variable loading, and logging triggers.</li>
+ *   <li>Startup hooks for executing command chains or kicking off dependency injection contexts.</li>
+ * </ul>
+ * 
+ * <p>Using this command speeds up project bootstrapping by replacing manual execution 
+ * boilerplate code with an automated, standardized entry point file.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class VtxExecMainCommand implements Command {
     
@@ -44,7 +60,7 @@ public class VtxExecMainCommand implements Command {
                     + project.stack().name().toLowerCase() + File.separator
                     + VTX_MAIN_TEMPLATE;
                     
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             String content = new String(buff);
             content = content.replace("{PACKAGE}", project.mainPkg());
             content = content.replace("{CORE_PACKAGE}", project.corePkg());

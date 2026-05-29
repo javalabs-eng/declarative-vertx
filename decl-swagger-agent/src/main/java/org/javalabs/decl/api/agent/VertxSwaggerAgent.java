@@ -8,7 +8,7 @@ import org.javalabs.decl.api.doc.VertxSwaggerDoc;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class VertxSwaggerAgent extends SwaggerAgent {
 

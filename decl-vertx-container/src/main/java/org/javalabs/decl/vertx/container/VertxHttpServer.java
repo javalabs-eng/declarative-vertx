@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * To manage incoming HTTP requests you must set the request handler on the HTTP server. This is 
  * usually done with the help of {@link io.vertx.ext.web.Router} before starting the server. 
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class VertxHttpServer extends ServerConfigSupport implements EmbeddedHttpServer {
     

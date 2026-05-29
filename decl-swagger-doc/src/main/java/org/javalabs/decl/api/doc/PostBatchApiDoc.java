@@ -104,7 +104,7 @@ import org.javalabs.decl.api.model.Property;
  * }
  * </pre>
  * 
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class PostBatchApiDoc extends AbstractDoc {
     

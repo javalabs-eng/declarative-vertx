@@ -17,12 +17,12 @@ import org.javalabs.orm.jaxb.NamedNativeQueryType;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class EntityConverter {
 
     private static final String AUTO_GEN_COMMENT = "This class is auto generated with jpa-lite framework.";
-    private static final String AUTHOR = "schan280";
+    private static final String AUTHOR = "Sudiptasish Chanda";
     
     public JavaClass toJavaClass(EntityType entity, String pkgName) throws ClassNotFoundException {
         JavaClass jClass = new JavaClass(entity.getName());

@@ -2,7 +2,7 @@ package org.javalabs.decl.api.example;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class Head {
     

@@ -10,7 +10,7 @@ import io.vertx.core.Verticle;
  * A configuration parser in is a component that reads settings from external configuration files, primarily xml, 
  * enabling applications to change the behavior without recompiling.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface WebConfigParser {
     

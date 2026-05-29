@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Supported data types.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public enum DataType {
     

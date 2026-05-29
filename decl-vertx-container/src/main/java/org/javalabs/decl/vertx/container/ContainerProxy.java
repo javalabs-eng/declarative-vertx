@@ -15,7 +15,7 @@ import org.javalabs.decl.container.Container;
  * to the container and add extra functionality before or after method calls. 
  * This is a common implementation of the Proxy design pattern.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ContainerProxy implements InvocationHandler {
     

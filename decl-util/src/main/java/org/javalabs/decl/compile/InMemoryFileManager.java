@@ -10,8 +10,25 @@ import javax.tools.JavaFileObject;
 import javax.tools.JavaFileObject.Kind;
 
 /**
- *
- * @author schan280
+ * A file manager that manages Java source and byte code files in memory.
+ * 
+ * <p>This class extends the standard {@link javax.tools.ForwardingJavaFileManager}. 
+ * It intercepts compiler outputs and stores byte code in memory using byte arrays 
+ * instead of writing files to the hard drive. It is a core component for dynamic, 
+ * runtime Java compilation tools.</p>
+ * 
+ * <p>Typical workflow usage:</p>
+ * <ol>
+ *   <li>Create an instance of this manager using a standard compiler file manager.</li>
+ *   <li>Pass this manager to a Java compiler task.</li>
+ *   <li>Retrieve the compiled byte code directly from memory for custom class loading.</li>
+ * </ol>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see javax.tools.JavaFileManager
+ * @see javax.tools.ForwardingJavaFileManager
+ * @see <a href="https://oracle.com">Java Compiler API Documentation</a>
  */
 public class InMemoryFileManager extends ForwardingJavaFileManager<JavaFileManager> {
     
@@ -30,6 +47,11 @@ public class InMemoryFileManager extends ForwardingJavaFileManager<JavaFileManag
     public void flush() throws IOException {
     }
     
+    /**
+     * Return the complied class object for the given class name
+     * @param className     Name of the class
+     * @return JavaCompiledClass    The java compiled class object.
+     */
     public JavaCompiledClass getCompileClass(String className) {
         return this.compiledClasses.get(className);
     }
@@ -67,6 +89,13 @@ public class InMemoryFileManager extends ForwardingJavaFileManager<JavaFileManag
         }
     }
 
+    /**
+     * Create the java file object instance from the filename and content.
+     * 
+     * @param javaFile  Java file name
+     * @param content   Raw Content of the file.
+     * @return JavaFileObject
+     */
     public JavaFileObject make(String javaFile, String content) {
         return new JavaSource(javaFile, content);
     }

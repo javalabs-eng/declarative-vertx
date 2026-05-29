@@ -9,7 +9,7 @@ import org.javalabs.decl.util.ConsoleWriter;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class OpenApiMain {
     
@@ -86,7 +86,7 @@ public class OpenApiMain {
         DocOption docOpt = new DocOption();
         docOpt.setConfigFile("routing-config.xml");
         // docOpt.setMethods(Arrays.asList("get", "post", "put", "delete"));
-        docOpt.setOutFile("/Users/schan280/Projects/openapi.yaml");
+        docOpt.setOutFile("/Users/Sudiptasish Chanda/Projects/openapi.yaml");
         
         SwaggerDoc doc = new SwaggerDoc();
         doc.generate(docOpt);

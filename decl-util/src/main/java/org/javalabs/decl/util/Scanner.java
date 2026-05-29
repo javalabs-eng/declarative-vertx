@@ -13,12 +13,38 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * A scanner class.
+ * A utility class designed to scan packages and discover Java classes at runtime.
+ * 
+ * <p>This scanner supports looking up classes from both standard file directories 
+ * (such as a local compiled target folder) and compressed fat JAR files (such as a 
+ * standalone deployment executable). It uses the current thread's context class 
+ * loader to locate and load the classes.</p>
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class Scanner {
 
+    /**
+     * Scans multiple Java packages by name and loads all discovered classes.
+     * 
+     * <p>This method loops through the provided package names, normalizes their text 
+     * paths, and pulls matching resource files. If it detects a JAR-bound environment, 
+     * it safely processes the archive entries. Otherwise, it drops back to scanning 
+     * physical disk directories recursively.</p>
+     * 
+     * <p>Example usage:</p>
+     * <pre>{@code
+     * String[] packages = {"com.example.api", "com.example.model"};
+     * List<Class> activeClasses = Scanner.scan(packages);
+     * }</pre>
+     *
+     * @param packageNames an array of dot-separated package strings to look inside (e.g., {@code "com.example"})
+     * @return a mutable list containing all successfully loaded {@link Class} objects, never null
+     * 
+     * @throws IOException            if an error occurs while opening connection streams or reading files
+     * @throws ClassNotFoundException if a discovered class file structure cannot be loaded by the class loader
+     * @throws NullPointerException   if the input array or any package element inside it is null
+     */
     public static List<Class> scan(String[] packageNames) throws IOException, ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         List<Class> classes = new ArrayList();
@@ -73,12 +99,12 @@ public class Scanner {
     }
     
     /**
-     * Recursive method used to find all classes in a given directory and subdirs.
+     * Recursively travels through a local directory folder to find all class files.
      *
-     * @param directory   The base directory
-     * @param packageName The package name for classes found inside the base directory
-     * @return The classes
-     * @throws ClassNotFoundException
+     * @param directory   the physical folder root to search through on disk
+     * @param packageName the dot-separated tracking name of the matching package structure
+     * @return a list of discovered classes inside the target directory tree
+     * @throws ClassNotFoundException if a class file cannot be loaded by reflection lookup
      */
     private static List findClasses(File directory, String packageName) throws ClassNotFoundException {
         List<Class> classes = new ArrayList();

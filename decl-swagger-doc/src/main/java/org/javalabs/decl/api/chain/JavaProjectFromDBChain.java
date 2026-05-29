@@ -14,7 +14,7 @@ import org.javalabs.decl.workflow.ChainConfig;
  * <p>
  * Vert.x is useful for creating asynchronous rest-based application. The setup is quick and easy.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaProjectFromDBChain extends AbstractChain {
 

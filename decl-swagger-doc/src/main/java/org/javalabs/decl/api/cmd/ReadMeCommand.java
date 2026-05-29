@@ -6,15 +6,31 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates a standard README.md file.
+ * 
+ * <p>This class uses a template-based approach to build project documentation. 
+ * It reads project settings (such as the project name, description, and version), 
+ * merges that information with a preset Markdown template, and outputs a complete 
+ * {@code README.md} file to the root directory of the project.</p>
+ * 
+ * <p>The generated Markdown file typically includes core sections such as:</p>
+ * <ul>
+ *   <li>Project title and brief introduction summary.</li>
+ *   <li>Prerequisites and easy installation setup guides.</li>
+ *   <li>Code usage examples and standard configuration instructions.</li>
+ * </ul>
+ * 
+ * <p>Using this command ensures that all repositories within an organization maintain 
+ * a consistent, professional documentation layout automatically.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class ReadMeCommand implements Command {
     
@@ -44,7 +60,7 @@ public class ReadMeCommand implements Command {
                     + project.platform().name().toLowerCase() + File.separator
                     + README_TEMPLATE;
                     
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             String tmp = new String(buff);
             tmp = tmp.replace("{name}", project.name());
             tmp = tmp.replace("{URI}", "/api/v1/<resource_name>");

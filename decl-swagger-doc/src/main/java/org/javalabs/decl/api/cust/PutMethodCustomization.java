@@ -15,7 +15,7 @@ import org.javalabs.decl.util.CharUtil;
 /**
  * Customization layer for a put api call.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class PutMethodCustomization extends AbstractCustomization {
     

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * This provider implements the {@link #create(java.lang.String) } method and returns a full-fledged
  * Vert.x http server.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class VertxHttpServerProvider extends HttpServerProvider {
     

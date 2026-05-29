@@ -15,7 +15,7 @@ import java.io.IOException;
  * appropriate directory structure for the project. It will also create some run time (dynamic) variable in that
  * source code. 
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface ProjectTemplate {
     

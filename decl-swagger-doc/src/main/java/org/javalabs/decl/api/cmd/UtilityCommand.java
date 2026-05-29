@@ -7,15 +7,16 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
+ * A command utility class to generate few utility classes required for the target project.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class UtilityCommand implements Command {
     
@@ -68,7 +69,7 @@ public class UtilityCommand implements Command {
     }
     
     private void write(Project project, String destDir, String template, String className) throws IOException {
-        byte[] buff = FileHandlerUtil.read(template);
+        byte[] buff = StreamUtil.read(template);
             
         // Now, look for the following customizer sequentially and start replacing the code
         String content = new String(buff);

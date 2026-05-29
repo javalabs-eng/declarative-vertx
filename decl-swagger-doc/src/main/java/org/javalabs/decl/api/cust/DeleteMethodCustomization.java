@@ -9,7 +9,7 @@ import org.javalabs.decl.util.CharUtil;
 /**
  * Customization layer for a delete api call.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class DeleteMethodCustomization extends AbstractCustomization {
         

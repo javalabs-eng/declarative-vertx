@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * documents into Java objects and vice versa. It works by mapping XML schemas to Java classes and 
  * using annotations to control the mapping.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public final class JAXBServerConfigParser implements ServerConfigParser {
     

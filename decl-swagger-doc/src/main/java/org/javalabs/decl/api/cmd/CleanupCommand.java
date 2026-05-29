@@ -17,13 +17,13 @@ import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 
 /**
- * This method is used to cleanup an existing project.
+ * This utility command is used to cleanup an existing project.
  * 
  * <p>
  * Calling this method will typically remove all generated build artifacts like source codes, configuration file,
  * class files and temporary files, effectively resetting the project to a clean state.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class CleanupCommand implements Command {
     

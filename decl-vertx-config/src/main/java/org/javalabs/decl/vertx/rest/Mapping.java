@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
  *  <li>consume - Specify the MIME media types that a resource should accept.</li>
  * </ul>
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)

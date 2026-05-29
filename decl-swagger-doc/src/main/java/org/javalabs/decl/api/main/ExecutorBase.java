@@ -3,7 +3,7 @@ package org.javalabs.decl.api.main;
 /**
  * Abstract executor class.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface ExecutorBase {
     

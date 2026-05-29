@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({"summary", "description", "value", "externalValue"})
 public class Example {

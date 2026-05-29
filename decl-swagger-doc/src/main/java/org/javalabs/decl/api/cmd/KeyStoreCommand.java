@@ -40,8 +40,28 @@ import sun.security.x509.X509CertImpl;
 import sun.security.x509.X509CertInfo;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically creates a Java KeyStore containing public and private keys.
+ * 
+ * <p>This class automates the generation and setup of secure cryptographic keystore files. 
+ * It generates asymmetric key pairs (RSA, EC, or DSA), bundles them with a newly minted 
+ * self-signed certificate, and saves them into a password-protected keystore archive on disk. 
+ * This is useful for instantly bootstrapping HTTPS setups, configuring JWT signing profiles, 
+ * or creating local development security credentials.</p>
+ * 
+ * <p>The generated keystore file can be output in modern standard formats such as:</p>
+ * <ul>
+ *   <li>{@code PKCS12} (Recommended industry standard format, typically {@code .p12} or {@code .pfx} extensions)</li>
+ *   <li>{@code JKS} (Legacy Java KeyStore proprietary format, typically {@code .jks} extensions)</li>
+ * </ul>
+ * 
+ * <p>Using this command removes the dependency on external command-line utilities like 
+ * the {@code keytool} binary by handling the complete cryptographic generation cycle inside the JVM.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see java.security.KeyStore
+ * @see java.security.KeyPairGenerator
+ * @see <a href="https://oracle.com">Java KeyStore API Documentation</a>
  */
 public class KeyStoreCommand implements Command {
 

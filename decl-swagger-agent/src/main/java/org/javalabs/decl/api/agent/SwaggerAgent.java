@@ -3,7 +3,7 @@ package org.javalabs.decl.api.agent;
 /**
  * Swagger agent.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public abstract class SwaggerAgent {
     

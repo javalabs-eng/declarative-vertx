@@ -9,7 +9,7 @@ import java.util.ServiceLoader;
 /**
  * Abstract provider that uses java's {@link ServiceLoader} capability to load the providers.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public abstract class PlatformProvider {
     

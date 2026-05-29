@@ -8,7 +8,7 @@ import org.javalabs.decl.gen.JavaClass;
 /**
  * The project class that encapsulates the attributes/hints to setup a workspace.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class Project {
     

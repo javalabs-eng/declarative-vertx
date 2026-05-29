@@ -14,7 +14,7 @@ import org.javalabs.decl.util.CharUtil;
 /**
  * Customization layer for a post api call.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class PostMethodCustomization extends AbstractCustomization {
 

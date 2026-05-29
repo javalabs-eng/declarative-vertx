@@ -6,7 +6,7 @@ import org.javalabs.decl.vertx.jaxb.RoutingConfig;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class XMLSerializer {
     

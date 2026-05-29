@@ -6,7 +6,7 @@ import org.javalabs.decl.visitor.Element;
 /**
  * Representation of a java import statement.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaComment implements CodeGenSupport, Element {
     

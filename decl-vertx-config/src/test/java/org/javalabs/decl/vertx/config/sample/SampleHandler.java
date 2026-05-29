@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @ResourceMapping(name = "sample", path = "/api/v1/sample")
 public class SampleHandler {

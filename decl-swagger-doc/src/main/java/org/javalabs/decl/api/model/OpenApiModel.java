@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({ "openapi", "info", "externalDocs", "servers", "tags", "security", "paths", "components" })
 public class OpenApiModel {

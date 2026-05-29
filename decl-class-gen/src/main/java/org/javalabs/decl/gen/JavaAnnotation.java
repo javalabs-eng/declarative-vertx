@@ -11,10 +11,10 @@ import org.javalabs.decl.visitor.Element;
  * 
  * <p>
  * In Java, a variable is a named container that holds a value. You can think of it as a box where you 
- * store data that you can use and manipulate throughout your program. Calling the {@link #gen() } method
+ * store data that you can use and manipulate throughout your program. Calling the appropriate visitor method
  * will generate the java variable names with the appropriate access specifier.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaAnnotation implements CodeGenSupport, Element {
     

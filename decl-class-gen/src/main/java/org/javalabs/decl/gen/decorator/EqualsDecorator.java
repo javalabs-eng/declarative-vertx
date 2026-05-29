@@ -10,7 +10,7 @@ import org.javalabs.decl.gen.JavaVariable;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class EqualsDecorator {
     

@@ -11,7 +11,7 @@ package org.javalabs.decl.container.spi;
  * An HTTP server can be accessed through the domain names of the websites it stores, and it
  * delivers the content of these hosted websites to the end user's device.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface EmbeddedHttpServer {
     

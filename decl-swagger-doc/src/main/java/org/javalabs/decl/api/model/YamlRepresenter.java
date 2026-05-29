@@ -7,7 +7,7 @@ import org.yaml.snakeyaml.representer.Representer;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class YamlRepresenter extends Representer {
 

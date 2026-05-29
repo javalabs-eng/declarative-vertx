@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaClassTest {
     
@@ -56,7 +56,7 @@ public class JavaClassTest {
         JavaClass jClass = new JavaClass("Employee");
         jClass.addParentInterface(Serializable.class);
         jClass.addParentInterface(Cloneable.class);
-        jClass.comment(new JavaComment(jClass).comment("This class is auto generated with jpa-lite.").author("schan280"));
+        jClass.comment(new JavaComment(jClass).comment("This class is auto generated with jpa-lite.").author("Sudiptasish Chanda"));
         
         jClass.pkg(new JavaPackage("org.javalabs.model"));
         jClass.addImport(new JavaImport(Objects.class));

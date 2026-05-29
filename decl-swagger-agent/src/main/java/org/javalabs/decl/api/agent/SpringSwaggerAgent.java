@@ -8,7 +8,7 @@ import org.javalabs.decl.api.doc.SpringSwaggerDoc;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class SpringSwaggerAgent extends SwaggerAgent {
     

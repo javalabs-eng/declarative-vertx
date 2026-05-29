@@ -22,7 +22,7 @@ import org.xml.sax.SAXParseException;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ServerConfigParserTest {
     

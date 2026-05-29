@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Schema definition for http 401 aka un-authorized.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class UnAuthorisedSpec {
     

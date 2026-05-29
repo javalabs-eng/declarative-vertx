@@ -6,7 +6,7 @@ import org.javalabs.decl.visitor.Element;
 /**
  * Representation of a java package.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaPackage implements CodeGenSupport, Element {
     

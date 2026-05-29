@@ -11,7 +11,7 @@ import org.javalabs.decl.vertx.config.model.ServerMessage;
 /**
  * Utility class to send the response to client.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ResponseHandler {
     

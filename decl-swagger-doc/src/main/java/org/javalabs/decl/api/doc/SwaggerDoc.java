@@ -52,7 +52,7 @@ import org.yaml.snakeyaml.representer.Representer;
  * <p>
  * This class is completely thread-safe. Therefore, you must reuse the instance fo this class.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class SwaggerDoc {
     

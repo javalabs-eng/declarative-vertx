@@ -7,15 +7,31 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates internal and container classes for a target project.
+ * 
+ * <p>This class acts as a foundational code generator for bootstrapping a project's core framework. 
+ * It uses preset text templates to create internal system files and data containers. This ensures 
+ * uniform class hierarchies, standardized collection wrappers, and clean data-transfer mechanisms 
+ * across the entire application ecosystem.</p>
+ * 
+ * <p>The generated components typically include structural objects such as:</p>
+ * <ul>
+ *   <li>Internal engine utilities, base exception structures, and common system constants.</li>
+ *   <li>Custom data holder classes, context containers, and registry records for resource state handling.</li>
+ *   <li>Dependency resolution objects and runtime lookup catalogs for internal modular management.</li>
+ * </ul>
+ * 
+ * <p>Using this command establishes a uniform structural pattern for new modules and eliminates 
+ * repetitive manual coding of architectural boilerplate code.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class CoreCommand implements Command {
     
@@ -66,7 +82,7 @@ public class CoreCommand implements Command {
     }
     
     private void write(Project project, String destDir, String template, String className) throws IOException {
-        byte[] buff = FileHandlerUtil.read(template);
+        byte[] buff = StreamUtil.read(template);
             
         // Now, look for the following customizer sequentially and start replacing the code
         String content = new String(buff);

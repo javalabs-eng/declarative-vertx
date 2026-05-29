@@ -56,7 +56,7 @@ public class ContainerErrorHandler implements Handler<Throwable> {
         }
         else {
             // Unexpected error
-            // TODO (schan280): Send email to support group.
+            // TODO (Sudiptasish Chanda): Send email to support group.
             LOGGER.error("Unexpected Error : " + e.getMessage());
             
             // handleDeploymentFailure();

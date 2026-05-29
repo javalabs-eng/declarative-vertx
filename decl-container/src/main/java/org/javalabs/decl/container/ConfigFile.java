@@ -20,7 +20,7 @@ package org.javalabs.decl.container;
  *       aspects of the container's behavior beyond the standard settings.</li>
  * </ul>
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ConfigFile {
     

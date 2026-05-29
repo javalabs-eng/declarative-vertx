@@ -9,15 +9,27 @@ import org.javalabs.decl.api.project.CommonHelperSupport;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.gen.JavaClass;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates Data Access Object (DAO) interfaces and implementation classes.
+ * 
+ * <p>This class uses a template-based approach to build the data access layer for a Java project. 
+ * It reads a schema definition or database table structure, merges that metadata with preset 
+ * templates, and outputs two primary Java source files for each entity:</p>
+ * <ul>
+ *   <li>A DAO interface specifying standard CRUD (Create, Read, Update, Delete) methods.</li>
+ *   <li>A DAO implementation class (DAOImpl) containing the actual database query logic.</li>
+ * </ul>
+ * 
+ * <p>Using this command ensures consistent data-access patterns across the application 
+ * and eliminates repetitive database connection and mapping boilerplate code.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class DAOCommand implements Command {
     
@@ -55,7 +67,7 @@ public class DAOCommand implements Command {
                     + "dao" + File.separator
                     + DAO_TEMPLATE;
 
-            byte[] dao_buff = FileHandlerUtil.read(template);
+            byte[] dao_buff = StreamUtil.read(template);
             
             // Prepare daoImpl file content
             template = "template" + File.separator
@@ -64,7 +76,7 @@ public class DAOCommand implements Command {
                     + "dao" + File.separator
                     + DAO_IMPL_TEMPLATE;
 
-            byte[] daoimpl_buff = FileHandlerUtil.read(template);
+            byte[] daoimpl_buff = StreamUtil.read(template);
             
             Map<String, JavaClass> classes = (Map)ctx.get("resource.names");
             

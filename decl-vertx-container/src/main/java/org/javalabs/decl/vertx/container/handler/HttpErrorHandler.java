@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  * arises from the underlying the module/component, it will eventually be caught
  * here and generic error message will be sent.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class HttpErrorHandler implements Handler<RoutingContext> {
     

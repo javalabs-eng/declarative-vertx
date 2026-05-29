@@ -7,7 +7,7 @@ import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.CharUtil;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.util.ObjectCreator;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
@@ -24,7 +24,7 @@ import org.javalabs.jpa.dialect.SQLDialect;
  * As a build automation tool, it automates the source code compilation and dependency management, assembles
  * binary codes into packages, and executes test scripts.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class MvnSetupCommand implements Command {
     
@@ -53,7 +53,7 @@ public class MvnSetupCommand implements Command {
                     + project.stack().name().toLowerCase() + File.separator
                     + POM_TEMPLATE;
                     
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             
             String tmp = new String(buff);
             tmp = tmp.replace("{name}", project.name());

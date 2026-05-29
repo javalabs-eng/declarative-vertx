@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * Abstract doc snippet generator.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public abstract class AbstractDoc {
     

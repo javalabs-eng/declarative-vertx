@@ -15,7 +15,7 @@ import java.util.List;
  * <p>
  * Currently the container configuration is not being utilized. However, it is kept for future provision.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ContainerConfig {
     

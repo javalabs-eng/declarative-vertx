@@ -2,7 +2,7 @@ package org.javalabs.decl.gen.decorator;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class LineDecorator {
     

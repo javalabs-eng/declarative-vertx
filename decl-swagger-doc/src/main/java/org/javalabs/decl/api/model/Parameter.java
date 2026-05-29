@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({"name", "in", "description", "required", "deprecated", "allowEmptyValue", "schema", "example", "examples"})
 public class Parameter {

@@ -17,7 +17,7 @@ import java.util.zip.ZipInputStream;
 /**
  * Utility class to handle IO operation.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class StreamUtil {
     
@@ -26,9 +26,9 @@ public class StreamUtil {
      * If the file is not found in the specific directory or in the classpath, then
      * this API will return <code>null</code>.
      * 
-     * @param filename
-     * @return InputStream
-     * @throws FileNotFoundException 
+     * @param filename      Name of the file to be read.
+     * @return InputStream  The input stream connected to file handler.
+     * @throws FileNotFoundException  if any error occurs while opening the file.
      */
     public static InputStream stream(final String filename) throws FileNotFoundException {
         // File input stream for the file to be read
@@ -58,9 +58,9 @@ public class StreamUtil {
     /**
      * Read the content of a file in a byte array.
      * 
-     * @param filename
-     * @return byte[]
-     * @throws IOException 
+     * @param filename      Name of the file to be read.
+     * @return byte[]       The raw binary content of the file
+     * @throws IOException  if any error occurs while reading/opening the file.
      */
     public static byte[] read(final String filename) throws IOException {
         ByteArrayOutputStream bOut = new ByteArrayOutputStream(8192);
@@ -81,9 +81,9 @@ public class StreamUtil {
     /**
      * API to read a zip file content.
      * 
-     * @param input
-     * @return List
-     * @throws IOException 
+     * @param input         The raw zip binary
+     * @return List         Return the individual zip entry content.
+     * @throws IOException  If any error occurs.
      */
     public static Map<String, byte[]> readZip(byte[] input) throws IOException {
         byte[] buff = new byte[128];
@@ -124,9 +124,9 @@ public class StreamUtil {
      * Write the content to the file.
      * If the file is already present, it will override the file.
      * 
-     * @param filename
-     * @param buff
-     * @throws IOException 
+     * @param filename      Name of the file where the content is to be written
+     * @param buff          Content to be written.
+     * @throws IOException  If any error occurs.
      */
     public static void write(final String filename, byte[] buff) throws IOException {
         try (FileOutputStream out = new FileOutputStream(filename)) {

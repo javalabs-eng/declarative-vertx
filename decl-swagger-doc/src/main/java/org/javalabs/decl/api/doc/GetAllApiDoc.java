@@ -100,7 +100,7 @@ import java.util.Map;
  * }
  * </pre>
  * 
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class GetAllApiDoc extends AbstractDoc {
     

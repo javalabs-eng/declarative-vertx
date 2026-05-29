@@ -7,19 +7,19 @@ import java.util.List;
 /**
  * Extractor to extract the fields from the resource provided in cli.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class FieldExtractor {
     
     /**
      * Extract the field set and determine their data types.
      * 
-     * Set the fields and their corresponding data types in the {@link project} object.
+     * Set the fields and their corresponding data types in the {@link Project} object.
      * 
      * <p>
      * The command line interface user can type in the attributes along with the resource name.
-     * Example 1: project -c -d /Users/schan280/Projects -n vertx-rest -r Employee(name, location, salary)
-     * Example 2: project -c -d /Users/schan280/Projects -n vertx-rest -r Employee(name::str, location::str, salary::float, active:bool)
+     * Example 1: project -c -d /Users/Sudiptasish Chanda/Projects -n vertx-rest -r Employee(name, location, salary)
+     * Example 2: project -c -d /Users/Sudiptasish Chanda/Projects -n vertx-rest -r Employee(name::str, location::str, salary::float, active:bool)
      * 
      * This method will extract the attribute details along with their data types.
      * 

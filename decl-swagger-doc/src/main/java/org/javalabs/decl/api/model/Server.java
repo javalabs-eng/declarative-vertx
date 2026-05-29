@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({ "url", "description", "variables" })
 public class Server {

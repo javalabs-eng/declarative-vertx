@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Schema definition for http 429 aka too many request.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ManyRequestSpec {
     

@@ -27,9 +27,29 @@ import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- * Create the vert.x specific routing configuration file.
- *
- * @author schan280
+ * A command utility that automatically generates a Vert.x routing configuration XML file.
+ * 
+ * <p>This class collects routing metadata across the application and exports it into a 
+ * single, structured XML manifest file. It maps out the reactive web landscape by pairing 
+ * system endpoints with their structural configurations, making it easy to manage, audit, 
+ * or dynamically load routes at application startup.</p>
+ * 
+ * <p>The generated XML configuration file captures critical API properties including:</p>
+ * <ul>
+ *   <li>The exact network listener path (e.g., {@code /api/v1/users/:id}).</li>
+ *   <li>The expected HTTP request method (such as {@code GET}, {@code POST}, or {@code DELETE}).</li>
+ *   <li>Detailed API metadata including authorization flags, timeout rules, and description tags.</li>
+ * </ul>
+ * 
+ * <p>Using this command centralizes decentralised code routes into a readable file schema, 
+ * helping decouple API definitions from compiled runtime logic.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see io.vertx.ext.web.Route
+ * @see io.vertx.ext.web.Router
+ * @see <a href="https://vertx.io">Vert.x Web Core Routing Guide</a>
+ * @see <a href="https://oracle.com">Java XML Transformer Documentation</a>
  */
 public class RoutingCommand implements Command {
     

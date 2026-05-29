@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({"type", "format", "description", "_enum", "example", "_default", "items"})
 public class Property {

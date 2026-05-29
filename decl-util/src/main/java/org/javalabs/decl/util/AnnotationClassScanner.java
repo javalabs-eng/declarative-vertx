@@ -19,12 +19,33 @@ import org.slf4j.LoggerFactory;
 /**
  * A class scanner to load all classes with specific annotation.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public final class AnnotationClassScanner {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(AnnotationClassScanner.class);
     
+    /**
+     * Finds all classes within a specific package that use the given annotation.
+     * 
+     * <p>This method scans a target package path and looks for classes marked with 
+     * the specified annotation type. It is useful for runtime classpath scanning, 
+     * automatic component registration, or custom dependency injection tools.</p>
+     * 
+     * <p>Example usage:</p>
+     * <pre>{@code
+     * List<Class<?>> components = findAnnotatedClasses("com.example.app", MyComponent.class);
+     * }</pre>
+     *
+     * @param annot         the annotation type class to look for
+     * @param packageNames  the full name of the package to scan (e.g., "com.example")
+     * 
+     * @return a list of matching classes, or an empty list if no matches are found
+     * @throws java.lang.NullPointerException if either the package name or annotation is null
+     * 
+     * @see java.lang.annotation.Annotation
+     * @see <a href="https://oracle.com">Class.isAnnotationPresent Documentation</a>
+     */
     public static List<Class<?>> findAnnotatedClasses(Class<? extends Annotation> annot, String[] packageNames) {
         List<Class<?>> annotated = new ArrayList<>();
         
@@ -46,6 +67,29 @@ public final class AnnotationClassScanner {
         return annotated;
     }
     
+    /**
+     * Scans all JAR files present in the classpath for classes with a specific annotation.
+     * 
+     * <p>This method inspects every JAR archive file defined in the current 
+     * Java classpath. It opens each archive, reads the class entries, and checks 
+     * if they are marked with the target annotation type. This is commonly 
+     * used during application startup for plugin discovery or framework configuration.</p>
+     * 
+     * <p>Example usage:</p>
+     * <pre>{@code
+     * Set<Class<?>> controllers = classpathScanner.scan(MyController.class);
+     * }</pre>
+     *
+     * @param packageNames  the full name of the package to scan (e.g., "com.example")
+     * @return a set of matching classes found in the classpath JARs, never null
+     * 
+     * @throws java.io.IOException if an error occurs while reading the JAR files
+     * @throws java.lang.ClassNotFoundException if the specified annotation is null
+     * 
+     * @see java.util.jar.JarFile
+     * @see java.lang.annotation.Annotation
+     * @see <a href="https://oracle.com">URLClassLoader.getURLs Documentation</a>
+     */
     public static List<Class> scan(String[] packageNames) throws IOException, ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         List<Class> classes = new ArrayList();
@@ -107,7 +151,7 @@ public final class AnnotationClassScanner {
      *
      * @param directory   The base directory
      * @param packageName The package name for classes found inside the base directory
-     * @return The classes
+     * @return List The classes
      * @throws ClassNotFoundException
      */
     private static List findClasses(File directory, String packageName) throws ClassNotFoundException {

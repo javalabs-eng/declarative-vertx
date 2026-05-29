@@ -9,7 +9,7 @@ import java.io.PrintStream;
  * It leverages the underlying {@link PrintStream} attached to output device to print s line.
  * It is the most common and straightforward way to print output to the console.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ConsoleWriter {
     
@@ -41,16 +41,24 @@ public class ConsoleWriter {
     }
     
     /**
-     * See {@link #timingPrint(java.lang.String) .
+     * Prints a time-stamped, colored message to the system console.
      * 
-     * <p>
-     * It will add a newline at the end of the text/paragraph.
+     * <p>This method prints a single line of text to the console. It automatically 
+     * prefixes the message with the current system time. It also applies the chosen 
+     * text color formatting, which is useful for highlighting performance benchmarks, 
+     * log steps, or execution errors in terminal displays.</p>
      * 
-     * @param text  Text or paragraph to be printed.
-     * @param color
-     */
-    public static void timingPrintln(String text, String color) {
-        timingPrint(text);
+     * <p>Example usage:</p>
+     * <pre>{@code
+     * // Prints something like: "[12:15:30.450] Task finished successfully" in green text
+     * ConsoleUtil.timingPrintln("Task finished successfully", ConsoleColor.GREEN);
+     * }</pre>
+     *
+     * @param txt   the message text to print, may be null or empty
+     * @param color the color code or name to apply to the printed terminal text (e.g., Ansi escape codes)
+     */ 
+    public static void timingPrintln(String txt, String color) {
+        timingPrint(txt);
         CONSOLE.println();
     }
     

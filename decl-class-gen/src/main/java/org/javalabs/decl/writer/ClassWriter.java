@@ -13,7 +13,7 @@ import org.javalabs.decl.visitor.JavaClassVisitor;
 /**
  * Java file writer class.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ClassWriter {
     

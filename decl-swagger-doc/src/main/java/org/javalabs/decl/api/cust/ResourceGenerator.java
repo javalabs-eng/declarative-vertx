@@ -18,7 +18,7 @@ import org.javalabs.decl.vertx.jaxb.RoutingConfig;
 /**
  * Class for generating the vert.x handler resources.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ResourceGenerator {
     

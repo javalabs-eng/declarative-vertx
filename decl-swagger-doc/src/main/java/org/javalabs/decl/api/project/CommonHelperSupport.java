@@ -5,7 +5,7 @@ import org.javalabs.decl.util.CharUtil;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class CommonHelperSupport {
     

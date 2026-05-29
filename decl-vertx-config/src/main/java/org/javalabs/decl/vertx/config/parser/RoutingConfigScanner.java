@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class RoutingConfigScanner {
     

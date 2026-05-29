@@ -5,7 +5,7 @@ import org.javalabs.decl.gen.CodeGenSupport;
 /**
  * A concrete visitor class.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaClassVisitor implements ClassVisitor {
     

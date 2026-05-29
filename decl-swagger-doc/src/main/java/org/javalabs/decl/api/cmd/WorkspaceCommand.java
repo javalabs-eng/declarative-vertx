@@ -22,7 +22,7 @@ import org.javalabs.decl.workflow.Context;
  *   <li>Target directory for generated class files</li>
  * </ul>
  * 
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class WorkspaceCommand implements Command {
     

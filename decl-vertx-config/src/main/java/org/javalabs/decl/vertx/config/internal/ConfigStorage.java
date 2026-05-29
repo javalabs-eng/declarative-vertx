@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Singleton class for keeping the platform/server configuration in the memory.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public final class ConfigStorage {
     

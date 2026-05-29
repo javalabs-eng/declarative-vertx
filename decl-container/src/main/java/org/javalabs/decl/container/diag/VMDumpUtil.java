@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
  * Using this utility class one can generate the heap dump on the fly. All you have to do is, plug-in with 
  * a REST end point.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public final class VMDumpUtil {
     

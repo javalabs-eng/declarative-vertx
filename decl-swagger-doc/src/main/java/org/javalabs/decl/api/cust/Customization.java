@@ -10,7 +10,7 @@ import org.javalabs.decl.gen.JavaClass;
  * Customization layer is defined at method level. It helps engineer to inject additional code/business logic
  * into the code. However, it is not mandatory for a method to have a customization layer.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface Customization {
     

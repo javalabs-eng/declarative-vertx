@@ -12,8 +12,24 @@ import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 
 /**
- *
- * @author schan280
+ * A compiler utility that compiles Java source code directly in memory.
+ * 
+ * <p>This class provides a simple way to compile Java source code from strings 
+ * at runtime. It bypasses the disk entirely by using an in-memory file manager 
+ * and holds the resulting byte code in RAM. This is useful for dynamic code 
+ * execution, scripting engines, or runtime evaluation.</p>
+ * 
+ * <p>Typical workflow usage:</p>
+ * <ol>
+ *   <li>Pass a class name and its Java source code string to the compiler.</li>
+ *   <li>The compiler invokes the system Java compiler tool in memory.</li>
+ *   <li>It returns a map or container of compiled byte code, ready to be loaded.</li>
+ * </ol>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see javax.tools.JavaCompiler
+ * @see <a href="https://oracle.com">Java Compilation API</a>
  */
 public final class InMemoryCompiler {
 

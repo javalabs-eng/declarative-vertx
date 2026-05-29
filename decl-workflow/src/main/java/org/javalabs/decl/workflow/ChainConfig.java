@@ -3,7 +3,7 @@ package org.javalabs.decl.workflow;
 /**
  * Class to store the configuration of a workflow chain.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class ChainConfig {
     

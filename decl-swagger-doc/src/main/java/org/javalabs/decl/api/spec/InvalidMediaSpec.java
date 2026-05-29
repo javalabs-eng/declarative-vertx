@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Schema definition for http 415 aka invalid media.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class InvalidMediaSpec {
     

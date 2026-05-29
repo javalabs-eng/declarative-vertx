@@ -19,7 +19,7 @@ import org.javalabs.decl.visitor.Element;
  *   <li>Method body</li>
  * </ul>
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaMethod implements CodeGenSupport, Element {
     

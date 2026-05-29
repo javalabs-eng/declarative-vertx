@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
  * <p>
  * Multiple commands are assembled into a {@link Chain}, which allows them to either
  * complete the required processing or delegate further processing to the next 
- * {@link SyncCommand} in the {@link Chain}.
+ * {@link Command} in the {@link Chain}.
  * 
  * Commands are loosely coupled. A command either succeeds or fails. A command
  * has the {@link #execute(org.javalabs.decl.workflow.Context) } method that will be

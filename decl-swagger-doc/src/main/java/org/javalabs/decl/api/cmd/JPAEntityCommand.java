@@ -16,8 +16,28 @@ import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates JPA entity classes by connecting to a remote database.
+ * 
+ * <p>This class establishes a connection to a live, remote database and inspects its schema 
+ * metadata. It discovers tables, columns, primary keys, and foreign key relationships. It then 
+ * merges this database layout with preset templates to write complete, valid Java source files 
+ * marked with standard Jakarta or Java Persistence API annotations.</p>
+ * 
+ * <p>The generated classes include mapping configurations such as:</p>
+ * <ul>
+ *   <li>{@link jakarta.persistence.Table} and {@link jakarta.persistence.Column} declarations.</li>
+ *   <li>Primary key strategies using {@link jakarta.persistence.GeneratedValue}.</li>
+ *   <li>Relationship definitions like {@link jakarta.persistence.OneToMany} or {@link jakarta.persistence.ManyToOne}.</li>
+ * </ul>
+ * 
+ * <p>Using this command speeds up project bootstrapping by replacing manual schema-to-code mapping 
+ * with automated reverse engineering.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see jakarta.persistence.Entity
+ * @see <a href="https://jakarta.ee">Jakarta Persistence API Specification</a>
+ * @see <a href="https://oracle.com">Java DatabaseMetaData API</a>
  */
 public class JPAEntityCommand implements Command {
     

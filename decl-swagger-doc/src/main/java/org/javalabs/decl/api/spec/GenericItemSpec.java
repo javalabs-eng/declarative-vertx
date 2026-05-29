@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class GenericItemSpec {
     

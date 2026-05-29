@@ -103,7 +103,7 @@ import java.util.stream.Collectors;
  * }
  * </pre>
  * 
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class PostApiDoc extends AbstractDoc {
     

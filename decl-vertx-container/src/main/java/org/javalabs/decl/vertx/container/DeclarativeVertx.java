@@ -27,7 +27,7 @@ import org.javalabs.decl.container.ContainerConfig;
  * maintainable, and potentially more flexible server setups, often leveraging the power of frameworks 
  * and tools that handle the implementation details.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class DeclarativeVertx {
  

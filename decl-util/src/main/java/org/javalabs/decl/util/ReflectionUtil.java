@@ -11,7 +11,7 @@ import java.util.Map;
  * Utility class that makes use of {@link java.lang.reflect} package to invoke
  * methods of an object.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public final class ReflectionUtil {
     

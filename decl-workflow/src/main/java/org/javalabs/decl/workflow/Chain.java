@@ -1,13 +1,13 @@
 package org.javalabs.decl.workflow;
 
 /**
- * A Chain represents a pre-configured list of {@link SyncCommand}s that will be 
+ * A Chain represents a pre-configured list of {@link Command}s that will be 
  * executed in order to perform processing on a specified {@link Context}.
  * 
  * <p>
- * Each included {@link SyncCommand} will be executed in turn, until either one of 
+ * Each included {@link Command} will be executed in turn, until either one of 
  * them returns <code>false</code>, or the end of the chain has been reached. 
- * The {@link Chain} itself will return the return value of the last {@link SyncCommand}
+ * The {@link Chain} itself will return the return value of the last {@link Command}
  * that was executed.
  *
  * @author Sudiptasish Chanda

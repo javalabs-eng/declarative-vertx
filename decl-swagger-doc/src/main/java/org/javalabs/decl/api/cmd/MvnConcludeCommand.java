@@ -10,8 +10,9 @@ import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 
 /**
+ * A command utility class to instruct the user as to how to compile and execute the target project.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class MvnConcludeCommand implements Command {
     

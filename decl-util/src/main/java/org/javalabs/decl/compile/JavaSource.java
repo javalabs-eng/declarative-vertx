@@ -8,8 +8,20 @@ import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
 
 /**
- *
- * @author schan280
+ * A container that stores Java source code as a string in memory.
+ * 
+ * <p>This class represents a source file (a {@code .java} file) in RAM. 
+ * It allows you to feed raw Java code strings directly into the system compiler 
+ * without writing text files to your hard drive.</p>
+ * 
+ * <p>This object is typically created right before compilation. You give it 
+ * the full class name and the text code, and then pass it to the 
+ * {@code InMemoryCompiler}.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see javax.tools.SimpleJavaFileObject
+ * @see <a href="https://oracle.com">Java File Object Content Types</a>
  */
 public class JavaSource extends SimpleJavaFileObject {
     

@@ -12,7 +12,7 @@ package org.javalabs.decl.visitor;
  * Concrete classes implement the Element interface and represent the various types of objects in the structure.
  * Each concrete element defines how it accepts a visitor by calling the corresponding method on the visitor.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface Element {
     

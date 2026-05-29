@@ -3,7 +3,7 @@ package org.javalabs.decl.gen;
 /**
  * Interface that supports code generation.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface CodeGenSupport {
     

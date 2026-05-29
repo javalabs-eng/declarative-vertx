@@ -17,8 +17,23 @@ import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates basic Plain Old Java Object (POJO) model classes.
+ * 
+ * <p>This class creates standard Java bean or POJO structures on disk based on a provided 
+ * model name. It sets up the basic foundation for a new data object, ensuring consistent 
+ * class structures, naming rules, and package declarations across a project.</p>
+ * 
+ * <p>The generated POJO file can automatically include standard boilerplate components such as:</p>
+ * <ul>
+ *   <li>Private fields with standard data types.</li>
+ *   <li>Public getter and setter methods matching standard Java Bean conventions.</li>
+ *   <li>Common object method overrides such as {@code toString()}, {@code equals()}, and {@code hashCode()}.</li>
+ * </ul>
+ * 
+ * <p>This utility helps developers instantly bootstrap new data models without typing out 
+ * repetitive structural code by hand.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class ModelCommand implements Command {
     

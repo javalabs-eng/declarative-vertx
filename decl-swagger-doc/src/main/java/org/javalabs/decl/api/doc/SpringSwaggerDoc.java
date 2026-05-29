@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Swagger doc generator for spring boot application.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class SpringSwaggerDoc extends SwaggerDoc {
     

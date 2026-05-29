@@ -2,7 +2,7 @@ package org.javalabs.decl.api.agent;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public abstract class AgentJDI {
     

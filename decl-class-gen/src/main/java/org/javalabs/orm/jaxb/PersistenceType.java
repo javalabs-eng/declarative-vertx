@@ -80,7 +80,7 @@ public class PersistenceType {
      * 
      * @return
      *     possible object is
-     *     {@link Persistence.PersistenceUnit }
+     *     {@link PersistenceUnitType }
      *     
      */
     public PersistenceUnitType getPersistenceUnit() {
@@ -92,7 +92,7 @@ public class PersistenceType {
      * 
      * @param value
      *     allowed object is
-     *     {@link Persistence.PersistenceUnit }
+     *     {@link PersistenceUnitType }
      *     
      */
     public void setPersistenceUnit(PersistenceUnitType value) {

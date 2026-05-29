@@ -13,14 +13,34 @@ import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.gen.JavaClass;
 import org.javalabs.decl.gen.JaxbJpaConverterBridge;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates JPA entity classes by reading an orm.xml file.
+ * 
+ * <p>This class acts as a template-based generation tool that reverse-engineers 
+ * XML configuration into concrete Java code. It parses standard object-relational mapping 
+ * files (like {@code orm.xml}), extracts metadata definitions for entity structures, and 
+ * merges that information with preset templates to write complete Java source files.</p>
+ * 
+ * <p>The command reads mapping instructions from the XML file including:</p>
+ * <ul>
+ *   <li>Entity definitions and corresponding database table names.</li>
+ *   <li>Field classifications, database column constraints, and primary key identifiers.</li>
+ *   <li>Entity-to-entity relationship hierarchies such as one-to-many or many-to-one maps.</li>
+ * </ul>
+ * 
+ * <p>Using this command allows development teams to maintain an XML-first configuration 
+ * structure while instantly updating the physical Java source code layer automatically.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see jakarta.persistence.Entity
+ * @see <a href="https://jakarta.ee">Jakarta Persistence API Specification</a>
+ * @see <a href="https://oracle.com">Java XML DocumentBuilder API</a>
  */
 public class OrmEntityModelCommand implements Command {
     
@@ -85,7 +105,7 @@ public class OrmEntityModelCommand implements Command {
         String ormXml = (String)ctx.get("orm.xml");
         if (ormXml == null) {
             // Generate routing-config.xml file
-            byte[] buff = FileHandlerUtil.read(project.ormPath());
+            byte[] buff = StreamUtil.read(project.ormPath());
             ormXml = new String(buff);
             ormXml = ormXml.replace("{MODEL_PACKAGE}", project.modelPkg());
         }

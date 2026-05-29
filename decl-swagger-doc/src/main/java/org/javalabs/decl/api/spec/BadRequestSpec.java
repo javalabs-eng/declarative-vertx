@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Schema definition for http 400 aka bad request.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class BadRequestSpec {
     

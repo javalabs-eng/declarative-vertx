@@ -15,15 +15,34 @@ import org.javalabs.decl.api.project.CommonHelperSupport;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.gen.JavaClass;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 import org.javalabs.decl.writer.ClassWriter;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates Vert.x handler classes.
+ * 
+ * <p>This class uses a template-based approach to build the routing and request-handling 
+ * layer for an asynchronous Vert.x web application. It takes endpoint metadata (such as 
+ * HTTP methods, paths, and payload models), merges that data with preset templates, and 
+ * generates functional {@link io.vertx.core.Handler} implementations.</p>
+ * 
+ * <p>The generated classes handle standard incoming network tasks such as:</p>
+ * <ul>
+ *   <li>Extracting path parameters and query strings from a {@code RoutingContext}.</li>
+ *   <li>Parsing and validating the JSON request body.</li>
+ *   <li>Routing the processing to a background service or event bus address.</li>
+ * </ul>
+ * 
+ * <p>Using this command keeps API routing declarations uniform and removes repetitive 
+ * request-parsing boilerplate code across your reactive services.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see io.vertx.core.Handler
+ * @see io.vertx.ext.web.RoutingContext
  */
 public class HandlerCommand implements Command {
     
@@ -65,7 +84,7 @@ public class HandlerCommand implements Command {
                     + "handler" + File.separator
                     + AUTH_HANDLER_TEMPLATE;
                     
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             String content = helper.analyze(project, project.handlerPkg(), new String(buff), null);
             
             File file = new File(destDir + File.separator + "AuthenticationHandler" + ".java");
@@ -82,7 +101,7 @@ public class HandlerCommand implements Command {
                     + "handler" + File.separator
                     + ABS_HANDLER_TEMPLATE;
                     
-            buff = FileHandlerUtil.read(template);
+            buff = StreamUtil.read(template);
             content = helper.analyze(project, project.handlerPkg(), new String(buff), null);
             
             file = new File(destDir + File.separator + "AbstractHandler" + ".java");
@@ -99,7 +118,7 @@ public class HandlerCommand implements Command {
                     + "handler" + File.separator
                     + HANDLER_TEMPLATE;
 
-            buff = FileHandlerUtil.read(template);
+            buff = StreamUtil.read(template);
             
             Map<String, JavaClass> classes = (Map)ctx.get("resource.names");
             for (Map.Entry<String, JavaClass> me: classes.entrySet()) {

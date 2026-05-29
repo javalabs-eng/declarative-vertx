@@ -6,7 +6,7 @@ package org.javalabs.decl.visitor;
  * <p>
  * ClassVisitor is not thread-safe. One has to call {@link #reset() } method before reusing this visitor.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface ClassVisitor extends Visitor {
     

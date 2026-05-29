@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.workflow.Command;
 import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
@@ -14,7 +14,7 @@ import org.javalabs.decl.writer.ClassWriter;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class AdditionalTemplateCommand implements Command {
     
@@ -44,7 +44,7 @@ public class AdditionalTemplateCommand implements Command {
                     + project.stack().name().toLowerCase() + File.separator
                     + VERTICLE_TEMPLATE;
                     
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             
             if (buff != null && buff.length > 0) {
                 String destDir = projectRoot.getAbsolutePath()

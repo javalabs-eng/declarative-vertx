@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
  * all the chains with the centralized workflow management system. This is necessary in order to
  * load and register the workflow chains and their associated commands with the system catalog.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class WorkflowInitializer {
     

@@ -8,7 +8,7 @@ import org.javalabs.decl.api.project.TechStack;
 /**
  * Swagger startup class.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class SwaggerStartup implements Startup {
     

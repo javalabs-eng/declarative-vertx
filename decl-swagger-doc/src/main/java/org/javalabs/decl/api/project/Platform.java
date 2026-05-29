@@ -3,7 +3,7 @@ package org.javalabs.decl.api.project;
 /**
  * Contract for platform.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public enum Platform {
     

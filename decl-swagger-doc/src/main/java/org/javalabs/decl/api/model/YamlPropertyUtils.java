@@ -15,7 +15,7 @@ import org.yaml.snakeyaml.introspector.PropertyUtils;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class YamlPropertyUtils extends PropertyUtils {
     

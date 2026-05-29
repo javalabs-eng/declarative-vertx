@@ -14,7 +14,7 @@ import org.javalabs.decl.workflow.WorkflowError;
  * Maven is a powerful project management tool that is based on POM (project object model). It is used for
  * project build, dependency, and documentation.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class JavaProjectTemplate implements ProjectTemplate {
     

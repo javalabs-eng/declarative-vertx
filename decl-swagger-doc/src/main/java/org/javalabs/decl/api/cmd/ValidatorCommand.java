@@ -11,9 +11,24 @@ import static org.javalabs.decl.workflow.Command.CONTINUE;
 import org.javalabs.decl.workflow.Context;
 
 /**
- * Command to validate the input.
- *
- * @author schan280
+ * A command utility that validates user inputs entered via a Command Line Interface (CLI).
+ * 
+ * <p>This class acts as a central guard layer for CLI applications. It inspects 
+ * raw string arguments provided by users on the terminal, checks them against 
+ * business rules, and flags errors before the application processes the data. 
+ * This ensures data integrity and prevents system crashes from bad inputs.</p>
+ * 
+ * <p>The validator typically checks for common input requirements including:</p>
+ * <ul>
+ *   <li>Ensuring mandatory command line flags or arguments are not missing.</li>
+ *   <li>Verifying correct text formats using data patterns or regular expressions.</li>
+ *   <li>Checking numeric bounds to make sure values fall within acceptable ranges.</li>
+ * </ul>
+ * 
+ * <p>Using this command keeps user-facing console prompts safe, uniform, and 
+ * highly resilient against typos or unexpected entries.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class ValidatorCommand implements Command {
     

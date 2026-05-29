@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlType;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {

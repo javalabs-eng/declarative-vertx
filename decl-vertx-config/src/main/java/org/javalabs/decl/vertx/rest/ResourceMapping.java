@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
  * Classes and methods may also be annotated with {@link Mapping#consume() } and {@link Mapping#produce() } to filter the requests 
  * they will receive.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)

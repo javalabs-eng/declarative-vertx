@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * Swagger agent loader.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class AgentLoader {
     

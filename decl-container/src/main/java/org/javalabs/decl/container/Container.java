@@ -13,7 +13,7 @@ package org.javalabs.decl.container;
  * It provides run time support for J2EE application components. J2EE application components use the protocols
  * and methods of the container to access other application components and services provided by the server.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface Container {
     

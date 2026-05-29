@@ -18,7 +18,7 @@ package org.javalabs.decl.vertx.container;
  * If we are to move away from Vert.x and use a different deployment runtime, it can easily be achieved
  * by implementing {@link org.javalabs.decl.container.Container} interface.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class StandardContainer extends VertxContainer {
     

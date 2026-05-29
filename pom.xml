@@ -12,14 +12,29 @@
     
     <name>declarative-vertx</name>
     <description>A declarative approach towards building Vert.x application</description>
+    <url>https://github.com/javalabs-eng/declarative-vertx</url>
     
     <!-- Declaring the license(s) used for distributing OTL components -->
     <licenses>
         <license>
-          <name>The Apache License, Version 2.0</name>
-          <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+    
+    <developers>
+        <developer>
+            <id>sudiptasish</id>
+            <name>Sudiptasish Chanda</name>
+            <email>sudiptasish@javalabs.org</email>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/javalabs-eng/declarative-vertx.git</connection>
+        <developerConnection>scm:git:ssh://github.com:javalabs-eng/declarative-vertx.git</developerConnection>
+        <url>https://github.com/javalabs-eng/declarative-vertx</url>
+    </scm>
     
     <modules>
         <module>decl-class-gen</module>
@@ -133,8 +148,91 @@
                     </properties>
                 </configuration>
             </plugin>
-            <!-- mvn javadoc:javadoc -->
             <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.14</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Source JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Javadoc JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.11.2</version>
+                <configuration>
+                    <additionalOptions>
+                        <additionalOption>--add-exports java.base/sun.security.x509=ALL-UNNAMED</additionalOption>
+                    </additionalOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- GPG Signing -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.2.8</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Maven Central Publishing -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.10.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                </configuration>
+            </plugin>
+            
+            <!-- mvn javadoc:javadoc -->
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.11.2</version>
@@ -144,7 +242,7 @@
                     <nohelp>true</nohelp>
                     <outputDirectory>${project.build.directory}/docs</outputDirectory>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>

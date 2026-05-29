@@ -13,7 +13,7 @@ package org.javalabs.decl.visitor;
  * set of classes but need to perform various operations on them, making it easy to extend functionality
  * without altering the existing codebase.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public interface Visitor {
     

@@ -7,7 +7,7 @@ package org.javalabs.decl.workflow;
  * This object will accessible only if caller set the baggage property <code>notify.error=true</code>.
  * The object can be fetched from the {@link Context} by the key <code>workflow.error</code>.
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 public class WorkflowError {
     

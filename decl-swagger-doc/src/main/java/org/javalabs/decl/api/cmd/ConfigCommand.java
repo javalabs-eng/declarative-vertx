@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import org.javalabs.decl.api.project.Project;
 import org.javalabs.decl.util.ConsoleWriter;
-import org.javalabs.decl.util.FileHandlerUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.util.MapperUtil;
 import org.javalabs.decl.util.ObjectCreator;
 import org.javalabs.decl.workflow.Command;
@@ -19,8 +19,19 @@ import org.javalabs.jpa.dialect.Dialect;
 import org.javalabs.jpa.dialect.SQLDialect;
 
 /**
- *
- * @author schan280
+ * A command utility that automatically generates configuration files and their corresponding singleton access classes.
+ * 
+ * <p>This class uses a template-based approach to bootstrap the application's configuration layer. 
+ * It reads environment settings or properties definitions, merges them with preset templates, 
+ * and outputs two main artifacts:</p>
+ * <ul>
+ *   <li>A flat configuration file (such as a {@code .properties}, {@code .yml}, or {@code .json} file) for environment variables.</li>
+ *   <li>A thread-safe Java singleton class that reads the file at runtime to provide globally accessible application settings.</li>
+ * </ul>
+ * 
+ * <p>This command helps maintain a single source of truth for app setup and eliminates repetitive boilerplate code.</p>
+ * 
+ * @author Sudiptasish Chanda
  */
 public class ConfigCommand implements Command {
     
@@ -58,7 +69,7 @@ public class ConfigCommand implements Command {
                     + project.platform().name().toLowerCase() + File.separator
                     + JSON_TEMPLATE;
             
-            byte[] buff = FileHandlerUtil.read(template);
+            byte[] buff = StreamUtil.read(template);
             
             Map<String, Object> map = MapperUtil.decode(buff, HashMap.class);
             Map<String, Object> dbConfig = (Map)map.get("db.config");
@@ -87,7 +98,7 @@ public class ConfigCommand implements Command {
     }
     
     private void write(Project project, File projectRoot, String template, String className) throws IOException {
-        byte[] buff = FileHandlerUtil.read(template);
+        byte[] buff = StreamUtil.read(template);
             
         // Now, look for the following customizer sequentially and start replacing the code
         String content = new String(buff);

@@ -43,7 +43,7 @@ public class AgentMain {
      * The accepted structure of the argument string is as follow:
      * handler=agent.handler.class.name,
      * transformer=class.file.transformer.class.name,
-     * <file=/path/to/class_method_mapping>
+     * file=/path/to/class_method_mapping
      *
      * If no agent handler or custom class file transformer name is specified,
      * then the default handler and default class file transformer will be used.

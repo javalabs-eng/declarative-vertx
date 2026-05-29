@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({"tags", "summary", "description", "operationId", "externalDocs", "parameters", "requestBody", "responses"})
 public class Operation {

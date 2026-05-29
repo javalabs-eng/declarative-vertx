@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  *
- * @author schan280
+ * @author Sudiptasish Chanda
  */
 @JsonPropertyOrder({"type", "items", "format", "properties", "externalDocs", "required"})
 public class Schema {

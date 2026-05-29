@@ -7,8 +7,20 @@ import java.net.URI;
 import javax.tools.SimpleJavaFileObject;
 
 /**
- *
- * @author schan280
+ * A container that stores compiled Java byte code in memory.
+ * 
+ * <p>This class represents a compiled Java class file in RAM. It avoids 
+ * the need to write {@code .class} files to disk during runtime compilation. 
+ * It holds the compiled byte code inside a byte array stream, making it 
+ * easy for custom class loaders to access and load the class.</p>
+ * 
+ * <p>This object is typically created by an in-memory file manager when 
+ * the Java compiler outputs byte code during runtime compilation.</p>
+ * 
+ * @author Sudiptasish Chanda
+ * 
+ * @see javax.tools.SimpleJavaFileObject
+ * @see <a href="https://oracle.com">Java File Object API</a>
  */
 public class JavaCompiledClass extends SimpleJavaFileObject {
     
@@ -22,10 +34,18 @@ public class JavaCompiledClass extends SimpleJavaFileObject {
         this.name = name;
     }
     
+    /**
+     * Return the compiled bytes of this class.
+     * @return byte[]   Raw byte array
+     */
     public byte[] compiled() {
         return compiled;
     }
     
+    /**
+     * Set the compiled class file bytes.
+     * @param compiled  Compiled class bytes.
+     */
     void compiled(byte[] compiled) {
         this.compiled = compiled;
     }
@@ -40,6 +60,9 @@ public class JavaCompiledClass extends SimpleJavaFileObject {
         return out;
     }
     
+    /**
+     * The output stream associated with the compiled class.
+     */
     public static class CompiledOutputStream extends ByteArrayOutputStream {
         
         private final JavaCompiledClass jc;
