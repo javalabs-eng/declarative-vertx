@@ -56,7 +56,8 @@ public class MvnSetupCommand implements Command {
             byte[] buff = StreamUtil.read(template);
             
             String tmp = new String(buff);
-            tmp = tmp.replace("{name}", project.name());
+            tmp = tmp.replace("{GROUP}", project.basePkg());
+            tmp = tmp.replace("{ARTIFACT}", project.name());
             tmp = tmp.replace("{MAIN_PACKAGE}", project.mainPkg());
             tmp = tmp.replace("{PROJECT}", CharUtil.toCapitalisedCamelCase(project.name()));
             tmp = tmp.replace("{JDK_VERSION}", project.jdkVersion());
