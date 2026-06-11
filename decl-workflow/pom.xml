@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.javalabs.decl</groupId>
         <artifactId>declarative-vertx</artifactId>
-        <version>2.0.1</version>
+        <version>2.0.3</version>
     </parent>
     
     <groupId>org.javalabs.decl</groupId>
     <artifactId>decl-workflow</artifactId>
-    <version>2.0.1</version>
+    <version>2.0.3</version>
     
     <name>decl-workflow</name>
     <description>A centralized Maven module designed to orchestrate, execute, and monitor complex business logic and multi-step workflows.</description>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.javalabs.decl</groupId>
             <artifactId>decl-util</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.3</version>
         </dependency>
     </dependencies>
 </project>
