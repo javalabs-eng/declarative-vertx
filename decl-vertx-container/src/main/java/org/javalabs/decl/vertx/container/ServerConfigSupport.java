@@ -6,6 +6,8 @@ import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.http.HttpVersion;
 import io.vertx.core.net.JksOptions;
 import io.vertx.core.net.KeyCertOptions;
+import io.vertx.core.net.PemKeyCertOptions;
+import io.vertx.core.net.PemTrustOptions;
 import io.vertx.core.net.TrustOptions;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,24 +32,42 @@ public abstract class ServerConfigSupport {
      */
     protected HttpServerOptions setupOptions(WebServerConfig config) {
         HttpServerOptions options = new HttpServerOptions();
-        JksOptions jks = null;
-        JksOptions trust = null;
         
         if (config.getKeystoreConfig() != null) {
-            if (config.getKeystoreConfig().getStoreName() != null) {
-                jks = new JksOptions()
+            if (config.getKeystoreConfig().getPemKeyConfig() != null) {
+                PemKeyCertOptions pemKey = new PemKeyCertOptions();
+                if (config.getKeystoreConfig().getPemKeyConfig().getKeyPath() != null) {
+                    pemKey.setKeyPath(config.getKeystoreConfig().getPemKeyConfig().getKeyPath());
+                }
+                if (config.getKeystoreConfig().getPemKeyConfig().getCertPath() != null) {
+                    pemKey.setCertPath(config.getKeystoreConfig().getPemKeyConfig().getCertPath());
+                }
+                options.setKeyCertOptions(pemKey);
+            }
+            else if (config.getKeystoreConfig().getStoreName() != null) {
+                JksOptions jks = new JksOptions()
                     .setPath(config.getKeystoreConfig().getStoreName())
                     .setPassword(config.getKeystoreConfig().getStorePassword());
+                
+                options.setKeyCertOptions(jks);
             }
         }
         if (config.getTruststoreConfig() != null) {
-            if (config.getTruststoreConfig().getStoreName() != null) {
-                trust = new JksOptions()
+            if (config.getTruststoreConfig().getPemCertConfig() != null) {
+                PemTrustOptions pemTrust = new PemTrustOptions();
+                if (config.getTruststoreConfig().getPemCertConfig().getCertPath() != null) {
+                    pemTrust.addCertPath(config.getTruststoreConfig().getPemCertConfig().getCertPath());
+                }
+                options.setTrustOptions(pemTrust);
+            }
+            else if (config.getTruststoreConfig().getStoreName() != null) {
+                JksOptions trust = new JksOptions()
                     .setPath(config.getTruststoreConfig().getStoreName())
                     .setPassword(config.getTruststoreConfig().getStorePassword());
+                
+                options.setTrustOptions(trust);
             }
         }
-        options.setKeyCertOptions(jks).setTrustOptions(trust);
         
         // Set the network options.
         if (config.getNetworkOpts() != null) {

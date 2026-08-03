@@ -131,16 +131,31 @@
         <xs:element name="keystore-config" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="store-name" />
-              <xs:element name="store-password" />
+              <xs:element name="pem-key-config" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="key-path" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="cert-path" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="store-name" minOccurs="0" />
+              <xs:element name="store-password" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="truststore-config" minOccurs="0" maxOccurs="1">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="store-name" />
-              <xs:element name="store-password" />
+              <xs:element name="pem-cert-config" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="cert-path" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="store-name" minOccurs="0" />
+              <xs:element name="store-password" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

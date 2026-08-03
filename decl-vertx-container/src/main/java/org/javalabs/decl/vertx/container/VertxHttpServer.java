@@ -58,6 +58,7 @@ public class VertxHttpServer extends ServerConfigSupport implements EmbeddedHttp
 
     // Default Port
     protected static final int DEFAULT_PORT = 8080;
+    protected static final boolean DEFAULT_SSL = false;
     protected static final int DEFAULT_PAYLOAD_SIZE = 10 * 1024 * 1024;      // 4 MB
     
     private final WebServerConfig config;
@@ -81,6 +82,7 @@ public class VertxHttpServer extends ServerConfigSupport implements EmbeddedHttp
         
         // Prepare the configuration for http server.
         HttpServerOptions options = setupOptions(config);
+        options.setSsl(overrideSsl(options.isSsl()));
         
         // Initialize the router.
         Router router = initRouter(vertx);
@@ -292,6 +294,20 @@ public class VertxHttpServer extends ServerConfigSupport implements EmbeddedHttp
             port = Integer.valueOf(s);
         }
         return port;
+    }
+    
+    protected Boolean overrideSsl(Boolean ssl) {
+        String s = System.getenv("HTTP_SSL");
+        if (s == null) {
+            s = System.getProperty("http.ssl");
+            if (s == null && ssl == null) {
+                s = String.valueOf(DEFAULT_SSL);
+            }
+        }
+        if (s != null) {
+            ssl = Boolean.valueOf(s);
+        }
+        return ssl;
     }
     
     /**
