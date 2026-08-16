@@ -64,7 +64,7 @@ public class {RESOURCE}BO {
 
         // First fetch the entry, to see if this already exists.
         {org.javalabs.decl.api.cust.PutMethodCustomization.boEntry(${Project}, ${JavaClass})}
-        {CAMEL(RESOURCE)}DAO.update({CAMEL(RESOURCE)});
+        {CAMEL(RESOURCE)}DAO.update(existing);
         timer.stop();
 
         if (LOGGER.isInfoEnabled()) {
