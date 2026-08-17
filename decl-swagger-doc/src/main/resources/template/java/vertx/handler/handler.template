@@ -163,7 +163,7 @@ public class {RESOURCE}Handler extends AbstractHandler {
             List<{RESOURCE}> {CAMEL(RESOURCE)}s = {CAMEL(RESOURCE)}BO.viewAll(user(ctx), params);
             List<Object> rows = (List){CAMEL(RESOURCE)}s;
 
-            ItemList itemList = build(params, rows, ctx);
+            ItemList itemList = build(ctx.normalizedPath(), params, rows);
             return itemList;
             
         }).onComplete(result -> {

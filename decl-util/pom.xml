@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.javalabs.decl</groupId>
         <artifactId>declarative-vertx</artifactId>
-        <version>2.0.5</version>
+        <version>2.0.6</version>
     </parent>
     
     <groupId>org.javalabs.decl</groupId>
     <artifactId>decl-util</artifactId>
-    <version>2.0.5</version>
+    <version>2.0.6</version>
     
     <name>decl-util</name>
     <description>A shared Maven library packed with reusable helper functions, string handlers, and date tools used across multiple applications.</description>

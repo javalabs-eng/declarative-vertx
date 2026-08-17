@@ -68,27 +68,21 @@ public abstract class AbstractHandler {
         return params;
     }
 
-    protected ItemList build(QueryParams params, List<Object> list, RoutingContext ctx) {
-        int total = list.size();
-        
+    protected ItemList build(String path, QueryParams params, List<Object> list) {
         // Build the item list.
-        String path = ctx.normalizedPath();
-        ItemList itemList = new ItemList(total, list, path);
-        
-        itemList.setHasMore(itemList.getTotal() > (params.offset() + params.limit()));
+        ItemList itemList = new ItemList(list.size(), list, path);
+        itemList.setHasMore(itemList.getTotal() == params.limit());
         
         String sep = "?";
         int idx = 0;
         
         for (String key : params.keys()) {
             String val = params.param(key);
-            if (! key.equals("offset") && ! key.equals("limit")) {
-                path += sep + key + "=" + val;
-                idx ++;
+            path += sep + key + "=" + val;
+            idx ++;
 
-                if (idx > 0) {
-                    sep = "&";
-                }
+            if (idx > 0) {
+                sep = "&";
             }
         }
         if (itemList.isHasMore()) {
