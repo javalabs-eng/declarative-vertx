@@ -97,7 +97,7 @@ Modify your `pom.xml` file and add the following dependency in your pom file.
 <dependency>
     <groupId>org.javalabs.decl</groupId>
     <artifactId>decl-vertx-container</artifactId>
-    <version>2.0.5</version>
+    <version>2.0.7</version>
 </dependency>
 ```
 

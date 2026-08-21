@@ -128,7 +128,7 @@ public class ResponseHandler {
                     }
                     else {
                         try {
-                            output = new String(MapperUtil.prettyWrite(body));
+                            output = new String(MapperUtil.prettyWrite(body, Boolean.valueOf(ctx.request().getParam("includeNull"))));
                         }
                         catch (RuntimeException e) {
                             // Do-Nothing

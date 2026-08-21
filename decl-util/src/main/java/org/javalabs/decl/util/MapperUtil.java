@@ -1,5 +1,6 @@
 package org.javalabs.decl.util;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -15,7 +16,12 @@ public class MapperUtil {
     
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
     
-    private static final ObjectWriter JSON_PRETTY_MAPPER = new ObjectMapper().writerWithDefaultPrettyPrinter();
+    private static final ObjectWriter JSON_PRETTY_MAPPER = new ObjectMapper()
+            .writerWithDefaultPrettyPrinter();
+    
+    private static final ObjectWriter JSON_NN_PRETTY_MAPPER = new ObjectMapper()
+            .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
+            .writerWithDefaultPrettyPrinter();
     
     private static final ObjectMapper YML_MAPPER = new ObjectMapper(new YAMLFactory());
     
@@ -131,8 +137,35 @@ public class MapperUtil {
      * @return byte[]   a formatted, indentation-rich JSON string, or an empty JSON string/null depending on configuration
      */
     public static byte[] prettyWrite(Object obj) {
+        return prettyWrite(obj, Boolean.FALSE);
+    }
+
+    /**
+     * Converts a Java object into a pretty-printed, human-readable JSON string.
+     * 
+     * <p>This method serializes the given object into JSON format. It configures 
+     * the underlying Jackson {@link com.fasterxml.jackson.databind.ObjectMapper} 
+     * to add visual formatting, such as line breaks and indentation. This makes 
+     * the output much easier for humans to read compared to a compact JSON string.</p>
+     * 
+     * <p>Example usage:</p>
+     * <pre>{@code
+     * User user = new User("Alice", 30);
+     * String prettyJson = jsonUtil.prettyWrite(user);
+     * // Output will include proper indents and line breaks
+     * }</pre>
+     *
+     * @param obj       the object instance to format into JSON, may be null
+     * @param includeNull   Serialize all attributes, including null ones. By default only non null attributes are serialized.
+     * 
+     * @return byte[]   a formatted, indentation-rich JSON string, or an empty JSON string/null depending on configuration
+     */
+    public static byte[] prettyWrite(Object obj, Boolean includeNull) {
         try {
-            return JSON_PRETTY_MAPPER.writeValueAsBytes(obj);
+            if (includeNull) {
+                return JSON_PRETTY_MAPPER.writeValueAsBytes(obj);
+            }
+            return JSON_NN_PRETTY_MAPPER.writeValueAsBytes(obj);
         }
         catch (IOException e) {
             throw new RuntimeException(e);
