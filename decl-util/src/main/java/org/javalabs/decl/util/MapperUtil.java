@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import java.io.IOException;
+import java.util.TimeZone;
 
 /**
  * Utility class to keep the {@link ObjectMapper}.
@@ -14,16 +15,20 @@ import java.io.IOException;
  */
 public class MapperUtil {
     
-    private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
+    private static final ObjectMapper JSON_MAPPER = new ObjectMapper()
+            .setTimeZone(TimeZone.getDefault());
     
     private static final ObjectWriter JSON_PRETTY_MAPPER = new ObjectMapper()
+            .setTimeZone(TimeZone.getDefault())
             .writerWithDefaultPrettyPrinter();
     
     private static final ObjectWriter JSON_NN_PRETTY_MAPPER = new ObjectMapper()
             .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
+            .setTimeZone(TimeZone.getDefault())
             .writerWithDefaultPrettyPrinter();
     
-    private static final ObjectMapper YML_MAPPER = new ObjectMapper(new YAMLFactory());
+    private static final ObjectMapper YML_MAPPER = new ObjectMapper(new YAMLFactory())
+            .setTimeZone(TimeZone.getDefault());
     
     /**
      * {@link #decode(byte[], java.lang.Object) } 

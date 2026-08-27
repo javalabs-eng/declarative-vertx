@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.javalabs.decl</groupId>
         <artifactId>declarative-vertx</artifactId>
-        <version>2.0.7</version>
+        <version>2.0.8</version>
     </parent>
     
     <groupId>org.javalabs.decl</groupId>
     <artifactId>decl-swagger-agent</artifactId>
-    <version>2.0.7</version>
+    <version>2.0.8</version>
     
     <name>decl-swagger-agent</name>
     <description>Maven-based Java agent that attaches to a running application to dynamically discover endpoints and generate Swagger/OpenAPI documentation.</description>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.javalabs.decl</groupId>
             <artifactId>decl-swagger-doc</artifactId>
-            <version>2.0.7</version>
+            <version>2.0.8</version>
         </dependency>
     </dependencies>
 

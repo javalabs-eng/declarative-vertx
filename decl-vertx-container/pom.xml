@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.javalabs.decl</groupId>
         <artifactId>declarative-vertx</artifactId>
-        <version>2.0.7</version>
+        <version>2.0.8</version>
     </parent>
     
     <groupId>org.javalabs.decl</groupId>
     <artifactId>decl-vertx-container</artifactId>
-    <version>2.0.7</version>
+    <version>2.0.8</version>
 
     <name>decl-vertx-container</name>
     <description>A Maven module optimized to package, containerize, and deploy asynchronous Vert.x verticles as cloud-native microservices.</description>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.javalabs.decl</groupId>
             <artifactId>decl-vertx-config</artifactId>
-            <version>2.0.7</version>
+            <version>2.0.8</version>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
