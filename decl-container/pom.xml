@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.javalabs.decl</groupId>
         <artifactId>declarative-vertx</artifactId>
-        <version>2.0.8</version>
+        <version>2.0.9</version>
     </parent>
     
     <groupId>org.javalabs.decl</groupId>
     <artifactId>decl-container</artifactId>
-    <version>2.0.8</version>
+    <version>2.0.9</version>
     
     <name>decl-container</name>
     <description>Designed to package, containerize for application deployment</description>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.javalabs.decl</groupId>
             <artifactId>decl-util</artifactId>
-            <version>2.0.8</version>
+            <version>2.0.9</version>
         </dependency>
     </dependencies>
 </project>

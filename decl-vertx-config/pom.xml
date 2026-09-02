@@ -7,12 +7,12 @@
     <parent>
         <groupId>org.javalabs.decl</groupId>
         <artifactId>declarative-vertx</artifactId>
-        <version>2.0.8</version>
+        <version>2.0.9</version>
     </parent>
     
     <groupId>org.javalabs.decl</groupId>
     <artifactId>decl-vertx-config</artifactId>
-    <version>2.0.8</version>
+    <version>2.0.9</version>
     
     <name>decl-vertx-config</name>
     <description>A centralized Maven module designed to fetch, parse, and inject runtime configurations for asynchronous Vert.x applications.</description>
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.javalabs.decl</groupId>
             <artifactId>decl-container</artifactId>
-            <version>2.0.8</version>
+            <version>2.0.9</version>
         </dependency>
         
         <!-- JAXB depdencies -->

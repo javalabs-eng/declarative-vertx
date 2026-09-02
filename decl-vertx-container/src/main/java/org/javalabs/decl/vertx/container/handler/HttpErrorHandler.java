@@ -18,6 +18,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import org.javalabs.decl.vertx.config.model.ServerMessage;
+import org.javalabs.decl.vertx.container.ResourceAlreadyExistsException;
+import org.javalabs.decl.vertx.container.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -122,16 +124,20 @@ public class HttpErrorHandler implements Handler<RoutingContext> {
                     errorMsg.setMessage("Connection to server server timed-out");
                 }
             }
-            else if (error instanceof NoSuchElementException) {
-                errorMsg.setCode(HttpURLConnection.HTTP_NOT_FOUND);
+            else if (error instanceof IllegalArgumentException) {
+                errorMsg.setCode(HttpURLConnection.HTTP_BAD_REQUEST);
                 errorMsg.setMessage(error.getMessage());
             }
             else if (error instanceof IllegalAccessException) {
                 errorMsg.setCode(HttpURLConnection.HTTP_UNAUTHORIZED);
                 errorMsg.setMessage(error.getMessage());
             }
-            else if (error instanceof IllegalArgumentException) {
-                errorMsg.setCode(HttpURLConnection.HTTP_BAD_REQUEST);
+            else if (error instanceof NoSuchElementException || error instanceof ResourceNotFoundException) {
+                errorMsg.setCode(HttpURLConnection.HTTP_NOT_FOUND);
+                errorMsg.setMessage(error.getMessage());
+            }
+            else if (error instanceof ResourceAlreadyExistsException) {
+                errorMsg.setCode(HttpURLConnection.HTTP_CONFLICT);
                 errorMsg.setMessage(error.getMessage());
             }
             else if (error instanceof RuntimeException) {
