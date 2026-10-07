@@ -60,7 +60,7 @@ public class HttpErrorHandler implements Handler<RoutingContext> {
                 || error instanceof IllegalAccessException
                 || error instanceof HttpException) {
             
-            LOGGER.error("Error Handler Invoked. Msg: " + (error != null ? error.getMessage() : "NONE"));
+            LOGGER.error("Error Handler Invoked. Msg: " + (error != null ? error.getMessage() : "NONE"), error);
         }
         else {
             LOGGER.error("Error Handler Invoked.", error);
