@@ -44,16 +44,40 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "bundlePath",
     "keyPath",
     "certPath"
 })
 public class PemKeyConfig {
+    
+    @XmlElement(name = "bundle-path", required = true)
+    protected String bundlePath;
     
     @XmlElement(name = "key-path", required = true)
     protected String keyPath;
     
     @XmlElement(name = "cert-path", required = true)
     protected String certPath;
+
+    /**
+     * Gets the value of the bundlePath property.
+     *
+     * @return possible object is {@link Object }
+     *
+     */
+    public String getBundlePath() {
+        return bundlePath;
+    }
+
+    /**
+     * Sets the value of the bundlePath property.
+     *
+     * @param value allowed object is {@link Object }
+     *
+     */
+    public void setBundlePath(String value) {
+        this.bundlePath = value;
+    }
 
     /**
      * Gets the value of the keyPath property.

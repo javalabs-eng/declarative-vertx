@@ -1,5 +1,6 @@
 package org.javalabs.decl.vertx.container;
 
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.ClientAuth;
 import io.vertx.core.http.Http2Settings;
 import io.vertx.core.http.HttpServerOptions;
@@ -9,10 +10,13 @@ import io.vertx.core.net.KeyCertOptions;
 import io.vertx.core.net.PemKeyCertOptions;
 import io.vertx.core.net.PemTrustOptions;
 import io.vertx.core.net.TrustOptions;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.javalabs.decl.util.ObjectCreator;
+import org.javalabs.decl.util.PEMUtil;
+import org.javalabs.decl.util.StreamUtil;
 import org.javalabs.decl.vertx.jaxb.WebServerConfig;
 
 /**
@@ -36,11 +40,24 @@ public abstract class ServerConfigSupport {
         if (config.getKeystoreConfig() != null) {
             if (config.getKeystoreConfig().getPemKeyConfig() != null) {
                 PemKeyCertOptions pemKey = new PemKeyCertOptions();
-                if (config.getKeystoreConfig().getPemKeyConfig().getKeyPath() != null) {
-                    pemKey.setKeyPath(config.getKeystoreConfig().getPemKeyConfig().getKeyPath());
+                if (config.getKeystoreConfig().getPemKeyConfig().getBundlePath() != null) {
+                    // One file combining both the private key and the certificate. PemKeyCertOptions has no "bundle path" 
+                    // concept of its own (setKeyPath/setCertPath each want the file holding just that one PEM block)
+                    // So read the file once here and split out the two blocks ourselves, then hand Vert.x the raw PEM content
+                    // directly via setKeyValue/setCertValue instead of a path.
+                    byte[] bundle = readPemBundle(config.getKeystoreConfig().getPemKeyConfig().getBundlePath());
+                    String content = new String(bundle);
+                    
+                    pemKey.setKeyValue(Buffer.buffer(PEMUtil.extractPemBlock(content, PEMUtil.KEY_BLOCK)));
+                    pemKey.setCertValue(Buffer.buffer(PEMUtil.extractPemBlock(content, PEMUtil.CERT_BLOCK)));
                 }
-                if (config.getKeystoreConfig().getPemKeyConfig().getCertPath() != null) {
-                    pemKey.setCertPath(config.getKeystoreConfig().getPemKeyConfig().getCertPath());
+                else {
+                    if (config.getKeystoreConfig().getPemKeyConfig().getKeyPath() != null) {
+                        pemKey.setKeyPath(config.getKeystoreConfig().getPemKeyConfig().getKeyPath());
+                    }
+                    if (config.getKeystoreConfig().getPemKeyConfig().getCertPath() != null) {
+                        pemKey.setCertPath(config.getKeystoreConfig().getPemKeyConfig().getCertPath());
+                    }
                 }
                 options.setKeyCertOptions(pemKey);
             }
@@ -179,5 +196,14 @@ public abstract class ServerConfigSupport {
             }
         }
         return options;
+    }
+
+    private byte[] readPemBundle(String path) {
+        try {
+            return StreamUtil.read(path);
+        }
+        catch (IOException e) {
+            throw new RuntimeException("Failed to read PEM bundle: " + path, e);
+        }
     }
 }

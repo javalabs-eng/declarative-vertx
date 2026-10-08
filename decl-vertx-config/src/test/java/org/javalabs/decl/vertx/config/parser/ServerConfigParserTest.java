@@ -1,7 +1,5 @@
 package org.javalabs.decl.vertx.config.parser;
 
-import org.javalabs.decl.vertx.config.parser.JAXBWebConfigParser;
-import org.javalabs.decl.vertx.config.parser.JAXBServerConfigParser;
 import org.javalabs.decl.vertx.jaxb.AccessLog;
 import org.javalabs.decl.vertx.jaxb.AllowedHeaders;
 import org.javalabs.decl.vertx.jaxb.AllowedMethods;
